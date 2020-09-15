@@ -1,0 +1,30 @@
+\section*{Ejercicio \#2}
+Hola \cite{cormen}.
+
+% ---- Para poner dos imágenes (una a lado de otra) ----
+\iffalse
+Como se muestra en la figuras \ref{fig:act-1_a} y \ref{fig:act-1_b}.
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.45\textwidth}
+  \centering
+  \includegraphics[width=0.9\textwidth]{act-1_a}
+  \caption{Envío de \textit{ICMP ECHO REQUEST} de PC0 a PC1, PC2 y PC3.}
+  \label{fig:act-1_a}
+\end{minipage}\hfill
+\begin{minipage}{0.45\textwidth}
+  \centering
+  \includegraphics[width=0.9\textwidth]{act-1_b}
+  \caption{Respuesta de PC1, PC2 y PC3. Tabla ARP de PC0.}
+  \label{fig:act-1_b}
+\end{minipage}
+\end{figure}
+% ---- Para colocar una imagen ----
+Como se muestra en la figura \ref{fig:act-3}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{act-3}
+  \caption{Tabla de subneteo para la red 192.168.100.0.}
+  \label{fig:act-3}
+\end{figure}
+\fi
