@@ -4,6 +4,7 @@
 using namespace std;
 
 int main(){
+    
     int vector[1000000];
     int quantity = 1000000;
     srand(time(NULL));
