@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 void swap(int &a,int &b)
@@ -34,3 +35,22 @@ void quickSort(int a[], int low, int high)
         quickSort(a, pi + 1, high);
     }
 }
+
+void printArray(int a[], int size) 
+{ 
+	int i; 
+	for (i = 0; i < size; i++) 
+		printf("%d ", a[i]); 
+	printf("\n"); 
+} 
+
+
+int main() 
+{ 
+	int arr[] = { 5, 9, 8, 2, 6 }; 
+	int n = sizeof(arr) / sizeof(arr[0]); 
+	quickSort(arr, 0, n - 1); 
+	printf("Sorted array: \n"); 
+	printArray(arr, n); 
+	return 0; 
+} 
