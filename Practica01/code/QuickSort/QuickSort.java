@@ -11,13 +11,13 @@ class Quicksort
             if (a[j] < pivot)
             {
                 i++;
-
+                // swap
                 int temp = a[i];
                 a[i] = a[j];
                 a[j] = temp;
             }
         }
-
+        // swap
         int temp = a[i+1];
         a[i+1] = a[high];
         a[high] = temp;
@@ -29,7 +29,6 @@ class Quicksort
     {
         if (low < high)
         {
-
             int pi = partition(a, low, high);
             sort(a, low, pi-1);
             sort(a, pi+1, high);
