@@ -16,3 +16,7 @@ Comenzando desde el inicio del arreglo, se compara cada par de elementos adyacen
 En general : 
  - Busca el mínimo elemento entre una posición i y el final de la lista
  - Intercambia el mínimo con el elemento de la posición i
+ 
+ <p align="center">
+  <img  src="https://github.com/syordya/CSUNSA-EDA/blob/master/Practica01/images/selectionGif.gif">
+</p>
