@@ -21,3 +21,9 @@ def heapSort(a):
     for i in range(n-1, 0, -1):
         a[i], a[0] = a[0], a[i]
         heapify(a, i, 0)
+
+a = [2,7,4,1,5,3]
+heapSort(a) 
+n = len(a) 
+print ("Arreglo Ordenado") 
+print (a)
