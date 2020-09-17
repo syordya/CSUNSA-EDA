@@ -34,4 +34,12 @@ class CountingSort
        }
        return max;
     }
+    
+    public static void main(String args[])
+    {
+      int[] numeros = new int[1000001];
+      CountingSort ob = new CountingSort();
+      int valor =0;
+      int val = 1000;
+    }
 }
