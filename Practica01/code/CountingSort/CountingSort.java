@@ -41,5 +41,6 @@ class CountingSort
       CountingSort ob = new CountingSort();
       int valor =0;
       int val = 1000;
+      ob.sort(numeros,valor);
     }
 }
