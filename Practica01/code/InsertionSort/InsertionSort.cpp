@@ -17,3 +17,22 @@ void insertionSort(int a[],int b)
         a[j + 1] = key;
     }
 }
+
+void printArray(int arr[], int n)  
+{  
+    int i;  
+    for (i = 0; i < n; i++)  
+        cout << arr[i] << " ";  
+    cout << endl; 
+}  
+  
+int main()  
+{  
+    int arr[] = { 12, 11, 7, 5, 6 };  
+    int n = sizeof(arr) / sizeof(arr[0]);  
+  
+    insertionSort(arr, n);  
+    printArray(arr, n);  
+  
+    return 0;  
+}
