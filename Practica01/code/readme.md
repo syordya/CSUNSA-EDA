@@ -20,3 +20,7 @@ En general :
  <p align="center">
   <img  src="https://github.com/syordya/CSUNSA-EDA/blob/master/Practica01/images/selectionGif.gif">
 </p>
+
+## Enlaces Interesantes(Videos/Paginas)
+* Selection sort - [Youtube](https://www.youtube.com/watch?v=GUDLRan2DWM)
+* Heap sort - [Youtube](https://www.youtube.com/watch?v=2DmK_H7IdTo)
