@@ -14,6 +14,9 @@ La idea básica del ordenamiento por conteo es determinar, para cada elemento de
 </p>
 
 ### Heap sort
+<p align="center">
+  <img  src="https://github.com/syordya/CSUNSA-EDA/blob/master/Practica01/images/heap.gif">
+</p>
 
 ### Insertion sort
 La idea de este algoritmo de ordenación consiste en ir insertando un elemento de la lista ó un arreglo en la parte ordenada de la misma, asumiendo que el primer elemento es la parte ordenada, el algoritmo ira comparando un elemento de la parte desordenada de la lista con los elementos de la parte ordenada, insertando el elemento en la posición correcta dentro de la parte ordenada, y así sucesivamente hasta obtener la lista ordenada.
@@ -28,6 +31,10 @@ La idea de este algoritmo de ordenación consiste en ir insertando un elemento d
 </p>
 
 ### Quick sort
+<p align="center">
+  <img  src="https://github.com/syordya/CSUNSA-EDA/blob/master/Practica01/images/quick.gif">
+</p>
+
 ### Selection sort
 En general : 
  - Busca el mínimo elemento entre una posición i y el final de la lista
