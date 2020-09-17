@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 void swap(int &a, int &b)
@@ -27,3 +28,22 @@ void bubbleSort(int a[],int b)
     	if(!swapped) break;
     }
 }
+
+void printArray(int a[], int size) 
+{ 
+	int i; 
+	for (i = 0; i < size; i++) 
+		printf("%d ", a[i]); 
+	printf("\n"); 
+} 
+
+int main() 
+{ 
+	int arr[] = { 5, 9, 8, 2, 6 }; 
+	int n = sizeof(arr) / sizeof(arr[0]); 
+	bubbleSort(arr, n); 
+	printf("Sorted array: \n"); 
+	printArray(arr, n); 
+    
+	return 0; 
+} 
