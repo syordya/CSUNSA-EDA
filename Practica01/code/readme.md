@@ -9,6 +9,7 @@ Comenzando desde el inicio del arreglo, se compara cada par de elementos adyacen
 
 ### Counting sort
 Este algoritmo es único en comparación con los demás, se debe a que no compara elementos mientras los ordena. Funciona en base a teclas numéricas. Para ello, crea una matriz de conteo y luego la usa para determinar la posición correcta de un elemento.
+
 La idea básica del ordenamiento por conteo es determinar, para cada elemento de entrada x , el número de elementos menores que x . Esta información se puede utilizar para colocar directamente en su posición correcta. Por ejemplo, si hay 17 elementos menos que x , entonces x pertenece a la posición de salida 18.
 <p align="center">
   <img  src="https://github.com/syordya/CSUNSA-EDA/blob/master/Practica01/images/counting.gif">
