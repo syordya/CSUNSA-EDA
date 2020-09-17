@@ -16,6 +16,11 @@ La idea de este algoritmo de ordenación consiste en ir insertando un elemento d
 </p>
 
 ### Merge sort
+
+<p align="center">
+  <img  src="https://github.com/syordya/CSUNSA-EDA/blob/master/Practica01/images/merge.gif">
+</p>
+
 ### Quick sort
 ### Selection sort
 En general : 
