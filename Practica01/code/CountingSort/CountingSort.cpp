@@ -38,22 +38,6 @@ void countSort(int a[],int b)
 int main()
 {
   int valores[1000000];
-  int val = 10;
-  float t0,t1;
-  for(int i= 10; i < 1000000;i += val)
-  {
-    agregar_valor(valores,i);
-    t0 = clock();
-	  countSort(valores,i);
-    t1 = clock();
-    float tiempo = ((t1-t0)/CLOCKS_PER_SEC);
-    set_data(i,tiempo);
-    val *= 2;
-  }
-  agregar_valor(valores,1000000);
-  t0 = clock();
+  int val = 1000;
   countSort(valores,1000000);
-  t1 = clock();
-  float tiempo = ((t1-t0)/CLOCKS_PER_SEC);
-  set_data(1000000,tiempo);
 }
