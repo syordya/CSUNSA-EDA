@@ -15,7 +15,7 @@ class CountingSort
 
         for(int i = size-1; i>=0; i--)
         {
-            output[count[a[i]]] = a[i];
+            output[count[a[i]]-1] = a[i];
             count[a[i]] -= 1;
         }
 
