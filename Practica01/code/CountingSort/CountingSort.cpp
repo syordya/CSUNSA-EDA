@@ -25,7 +25,7 @@ void countSort(int a[],int b)
 
     for(int i = size-1; i>=0; i--)
     {
-        output[count[a[i]]] = a[i];
+        output[count[a[i]]-1] = a[i];
         count[a[i]] -= 1;
     }
 
@@ -35,9 +35,17 @@ void countSort(int a[],int b)
     }
 }
 
-int main()
-{
-  int valores[1000000];
-  int val = 1000;
-  countSort(valores,1000000);
+// Function to print an array
+void printArray(int array[], int size) {
+  for (int i = 0; i < size; i++)
+    cout << array[i] << " ";
+  cout << endl;
+}
+
+// Driver code
+int main() {
+  int array[] = {4, 2, 2, 8, 3, 3, 1};
+  int n = sizeof(array) / sizeof(array[0]);
+  countSort(array, n);
+  printArray(array, n);
 }
