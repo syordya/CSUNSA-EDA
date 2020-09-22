@@ -5,7 +5,7 @@ def countSort(a):
     size = len(a)
     output = (size+1) *[0]
     maximo1 = max(a)
-    count = (maximo1+1)*[0];
+    count = (maximo1+1)*[0]
 
     for i in range(0,maximo1+1):
         count[i] = 0
@@ -21,7 +21,7 @@ def countSort(a):
         count[a[i]] -= 1
 
     for i in range(0,size):
-        a[i] = output[i];
+        a[i] = output[i]
 
 if __name__ == '__main__':
     n = stdin.readline()
