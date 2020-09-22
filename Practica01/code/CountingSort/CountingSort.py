@@ -14,7 +14,7 @@ def countSort(a):
         count[i] += count[i-1]
 
     for i in range(size-1,-1,-1):
-        output[count[a[i]]] = a[i]
+        output[count[a[i]]-1] = a[i]
         count[a[i]] -= 1
 
     for i in range(0,size):
