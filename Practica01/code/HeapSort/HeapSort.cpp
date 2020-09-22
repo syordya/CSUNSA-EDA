@@ -1,4 +1,5 @@
-#include <iostream> 
+#include <iostream>
+#include <chrono>
 
 using namespace std; 
 
@@ -36,15 +37,29 @@ void heapSort(int A[], int n) {
 	} 
 } 
 
+void printArray(int a[], int n) {
+  for (int i = 0; i < n; ++i) {
+    printf("%d ", a[i]);
+  }
+  printf("\n");
+}
 
-int main(){ 
-	int A[]={2,7,4,1,5,3};
-	int n = 6; 
-
-	heapSort(A, n); 
-
-	cout << "Arreglo Ordenado \n"; 
-    for (int i = 0; i < n; i++) {
-        cout << A[i] << "\t";
+int main() {
+  int n = 0;
+  while (std::cin >> n) {
+    int arr[n] = {0};
+    for (int i = 0; i < n; ++i) {
+      std::cin >> *(arr + i);
     }
-} 
+    auto start = std::chrono::steady_clock::now();
+    heapSort(arr, n);
+    auto end = std::chrono::steady_clock::now();
+    // printf("Sorted array: \n");
+    // printArray(arr, n);
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout << elapsed_seconds.count() << ' ';
+  }
+  std::cout << '\n';
+
+  return 0;
+}
