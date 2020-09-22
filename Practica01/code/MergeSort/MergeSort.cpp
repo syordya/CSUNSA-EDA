@@ -77,6 +77,7 @@ int main() {
     auto end = std::chrono::steady_clock::now();
     // printf("Sorted array: \n");
     // printArray(arr, n);
+    
     std::chrono::duration<double> elapsed_seconds = end - start;
     std::cout << elapsed_seconds.count() << ' ';
   }
