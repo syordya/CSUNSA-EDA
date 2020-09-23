@@ -1,6 +1,10 @@
 # Specifics
 entrada.txt
 
+# Executables and compiled files
+*.exe
+*.class
+
 # IDE settings
 .vscode/*
 
