@@ -1,5 +1,7 @@
+#include <chrono>
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 void merge(int a[], int l, int m, int r)
@@ -56,22 +58,30 @@ void mergeSort(int a[], int l, int r)
     }
 }
 
-void printArray(int A[], int size) 
-{ 
-    int i; 
-    for (i = 0; i < size; i++) 
-        printf("%d ", A[i]); 
-    printf("\n"); 
-} 
-  
-int main() 
-{ 
-    int arr[] = { 12, 11, 13, 5, 6, 7 }; 
-    int arr_size = sizeof(arr) / sizeof(arr[0]); 
-  
-    mergeSort(arr, 0, arr_size - 1); 
-  
-    printf("\nSorted array is \n"); 
-    printArray(arr, arr_size); 
-    return 0; 
-} 
+void printArray(int a[], int n) {
+  for (int i = 0; i < n; ++i) {
+    printf("%d ", a[i]);
+  }
+  printf("\n");
+}
+
+int main() {
+  int n = 0;
+  while (std::cin >> n) {
+    int arr[n] = {0};
+    for (int i = 0; i < n; ++i) {
+      std::cin >> *(arr + i);
+    }
+    auto start = std::chrono::steady_clock::now();
+    mergeSort(arr, 0, n-1);
+    auto end = std::chrono::steady_clock::now();
+    // printf("Sorted array: \n");
+    // printArray(arr, n);
+    
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout << elapsed_seconds.count() << ' ';
+  }
+  std::cout << '\n';
+
+  return 0;
+}

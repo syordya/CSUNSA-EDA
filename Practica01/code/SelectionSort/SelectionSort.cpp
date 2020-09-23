@@ -1,6 +1,7 @@
 #include <iostream>
-using namespace std;
+#include <chrono>
 
+using namespace std;
 
 void SelectionSort(int A[],int tam){
     for (int i = 0; i < tam; i++) {
@@ -17,12 +18,30 @@ void SelectionSort(int A[],int tam){
         A[menor] = temp;
     }	
 }
+
+void printArray(int a[], int n) {
+  for (int i = 0; i < n; ++i) {
+    printf("%d ", a[i]);
+  }
+  printf("\n");
+}
+
 int main() {
-    int A[]={2,7,4,1,5,3};
-    int tam=6;
-    SelectionSort(A,tam);
-    cout << "\nArreglo Ordenado : ";
-    for (int i = 0; i < 6; i++) {
-        cout << A[i] << "\t";
+  int n = 0;
+  while (std::cin >> n) {
+    int arr[n] = {0};
+    for (int i = 0; i < n; ++i) {
+      std::cin >> *(arr + i);
     }
+    auto start = std::chrono::steady_clock::now();
+    SelectionSort(arr, n);
+    auto end = std::chrono::steady_clock::now();
+    // printf("Sorted array: \n");
+    // printArray(arr, n);
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout << elapsed_seconds.count() << ' ';
+  }
+  std::cout << '\n';
+
+  return 0;
 }

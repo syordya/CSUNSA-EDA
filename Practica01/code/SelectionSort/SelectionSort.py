@@ -1,3 +1,6 @@
+from sys import stdin
+import time
+
 def SelectionSort(A,n):
     for i in range(0,n-1):
         menor = i
@@ -8,8 +11,14 @@ def SelectionSort(A,n):
         A[i] = A[menor]
         A[menor] = temp
 
-A = [2,7,4,1,5,3]
-n = 6
-print ("Arreglo Ordenado")
-SelectionSort(A,n)
-print (A)  
+if __name__ == '__main__':
+    n = stdin.readline()
+    while (n):
+        arr = [int(x) for x in stdin.readline().split()]
+        start = time.time()
+        SelectionSort(arr, len(arr))
+        end = time.time()
+        #print(arr)
+        print(round(end-start, 4), end=' ')
+        n = stdin.readline()
+    print()

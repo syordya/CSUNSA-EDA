@@ -1,3 +1,4 @@
+#include <chrono>
 #include <iostream>
 #include <vector>
 
@@ -36,22 +37,29 @@ void quickSort(int a[], int low, int high)
     }
 }
 
-void printArray(int a[], int size) 
-{ 
-	int i; 
-	for (i = 0; i < size; i++) 
-		printf("%d ", a[i]); 
-	printf("\n"); 
-} 
+void printArray(int a[], int n) {
+  for (int i = 0; i < n; ++i) {
+    printf("%d ", a[i]);
+  }
+  printf("\n");
+}
 
+int main() {
+  int n = 0;
+  while (std::cin >> n) {
+    int arr[n] = {0};
+    for (int i = 0; i < n; ++i) {
+      std::cin >> *(arr + i);
+    }
+    auto start = std::chrono::steady_clock::now();
+    quickSort(arr, 0, n - 1);
+    auto end = std::chrono::steady_clock::now();
+    // printf("Sorted array: \n");
+    // printArray(arr, n);
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout << elapsed_seconds.count() << ' ';
+  }
+  std::cout << '\n';
 
-int main() 
-{ 
-	int arr[] = { 5, 9, 8, 2, 6 }; 
-	int n = sizeof(arr) / sizeof(arr[0]); 
-	quickSort(arr, 0, n - 1); 
-	printf("Sorted array: \n"); 
-	printArray(arr, n); 
-    
-	return 0; 
-} 
+  return 0;
+}

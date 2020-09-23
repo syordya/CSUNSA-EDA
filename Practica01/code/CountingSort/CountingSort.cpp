@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
+
 using namespace std;
 
 int getMax(int a[],int b)
@@ -25,7 +27,7 @@ void countSort(int a[],int b)
 
     for(int i = size-1; i>=0; i--)
     {
-        output[count[a[i]]] = a[i];
+        output[count[a[i]]-1] = a[i];
         count[a[i]] -= 1;
     }
 
@@ -35,9 +37,29 @@ void countSort(int a[],int b)
     }
 }
 
-int main()
-{
-  int valores[1000000];
-  int val = 1000;
-  countSort(valores,1000000);
+void printArray(int a[], int n) {
+  for (int i = 0; i < n; ++i) {
+    printf("%d ", a[i]);
+  }
+  printf("\n");
+}
+
+int main() {
+  int n = 0;
+  while (std::cin >> n) {
+    int arr[n] = {0};
+    for (int i = 0; i < n; ++i) {
+      std::cin >> *(arr + i);
+    }
+    auto start = std::chrono::steady_clock::now();
+    countSort(arr, n);
+    auto end = std::chrono::steady_clock::now();
+    // printf("Sorted array: \n");
+    // printArray(arr, n);
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout << elapsed_seconds.count() << ' ';
+  }
+  std::cout << '\n';
+
+  return 0;
 }

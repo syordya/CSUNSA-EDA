@@ -1,4 +1,7 @@
-def heapify(arr, n, i):
+from sys import stdin
+import time
+
+def heapify(a, n, i):
     largest = i
     l = 2 * i + 1
     r = 2 * i + 2
@@ -22,8 +25,14 @@ def heapSort(a):
         a[i], a[0] = a[0], a[i]
         heapify(a, i, 0)
 
-a = [2,7,4,1,5,3]
-heapSort(a) 
-n = len(a) 
-print ("Arreglo Ordenado") 
-print (a)
+if __name__ == '__main__':
+    n = stdin.readline()
+    while (n):
+        arr = [int(x) for x in stdin.readline().split()]
+        start = time.time()
+        heapSort(arr)
+        end = time.time()
+        #print(arr)
+        print(round(end-start, 4), end=' ')
+        n = stdin.readline()
+    print()

@@ -1,24 +1,58 @@
-def merge(L, R):
-    i = 0
-    j = 0
-    ret = []
-    while i < len(L) and j < len(R):
-        if(L[i]<R[j]):
-          ret.append(L[i])
-          i=i+1
-        else:
-          ret.append(R[j])
-          j=j+1
+from sys import stdin
+import time
 
-    ret += L[i:]
-    ret += R[j:]
-    return ret
+def merge(arr, l, m, r): 
+	n1 = m - l + 1
+	n2 = r- m 
 
-def mergeSort(A):
+	L = [0] * (n1) 
+	R = [0] * (n2) 
 
-    n = len(A)
-    if n <= 1:
-        return A
-    L = mergeSort(A[:n // 2])
-    R = mergeSort(A[n // 2:n])
-    return merge(L,R)
+	for i in range(0 , n1): 
+		L[i] = arr[l + i] 
+
+	for j in range(0 , n2): 
+		R[j] = arr[m + 1 + j] 
+
+	i = 0	 
+	j = 0	 
+	k = l	 
+
+	while i < n1 and j < n2 : 
+		if L[i] <= R[j]: 
+			arr[k] = L[i] 
+			i += 1
+		else: 
+			arr[k] = R[j] 
+			j += 1
+		k += 1
+
+	while i < n1: 
+		arr[k] = L[i] 
+		i += 1
+		k += 1
+
+	while j < n2: 
+		arr[k] = R[j] 
+		j += 1
+		k += 1
+
+
+def mergeSort(arr,l,r): 
+	if l < r: 
+		m = (l+(r-1))//2
+		mergeSort(arr, l, m) 
+		mergeSort(arr, m+1, r) 
+		merge(arr, l, m, r) 
+
+if __name__ == '__main__':
+    n = stdin.readline()
+    while (n):
+        arr = [int(x) for x in stdin.readline().split()]
+        start = time.time()
+        mergeSort(arr,0,len(arr)-1)
+        end = time.time()
+        #print(arr)
+        print(round(end-start, 4), end=' ')
+        n = stdin.readline()
+    print()

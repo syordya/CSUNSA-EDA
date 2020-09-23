@@ -1,5 +1,7 @@
+#include <chrono>
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 void insertionSort(int a[],int b)
@@ -17,22 +19,30 @@ void insertionSort(int a[],int b)
         a[j + 1] = key;
     }
 }
+  
+void printArray(int a[], int n) {
+  for (int i = 0; i < n; ++i) {
+    printf("%d ", a[i]);
+  }
+  printf("\n");
+}
 
-void printArray(int arr[], int n)  
-{  
-    int i;  
-    for (i = 0; i < n; i++)  
-        cout << arr[i] << " ";  
-    cout << endl; 
-}  
-  
-int main()  
-{  
-    int arr[] = { 12, 11, 7, 5, 6 };  
-    int n = sizeof(arr) / sizeof(arr[0]);  
-  
-    insertionSort(arr, n);  
-    printArray(arr, n);  
-  
-    return 0;  
+int main() {
+  int n = 0;
+  while (std::cin >> n) {
+    int arr[n] = {0};
+    for (int i = 0; i < n; ++i) {
+      std::cin >> *(arr + i);
+    }
+    auto start = std::chrono::steady_clock::now();
+    insertionSort(arr, n);
+    auto end = std::chrono::steady_clock::now();
+    // printf("Sorted array: \n");
+    // printArray(arr, n);
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout << elapsed_seconds.count() << ' ';
+  }
+  std::cout << '\n';
+
+  return 0;
 }
