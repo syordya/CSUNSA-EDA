@@ -1,5 +1,4 @@
 import numpy as np
-import cv2
 from matplotlib import pyplot as plt
 
 a,b = np.loadtxt('BubbleSort/valores_c++.txt',delimiter = ',',unpack = True)
