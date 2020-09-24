@@ -1,5 +1,4 @@
 import numpy as np
-import cv2
 from matplotlib import pyplot as plt
 
 t,a = np.loadtxt('SelectionSort/valores_c++.txt',delimiter = ',',unpack = True)
