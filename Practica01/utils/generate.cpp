@@ -3,9 +3,9 @@
 
 int main() {
   // std::srand(std::time(nullptr));
-  int from = 20000;
+  int from = 10000;
   int to = 200000;
-  int skip = 20000;
+  int skip = 10000;
   for (int i = from; i <= to; i += skip) {
     std::cout << i << '\n';
     for (int j = 1; j <= i; ++j) {
