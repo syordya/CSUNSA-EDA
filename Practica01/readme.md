@@ -1,0 +1,38 @@
+## Table of contents
+### Sorting algorithms
+    - [Bubble Sort](#BubbleSort)
+    - [Counting Sort](#CountingSort)
+    - [Heap Sort](#HeapSort)
+    - [Insertion Sort](#InsertionSort)
+    - [Merge Sort](#MergeSort)
+    - [Quick Sort](#QuickSort)
+    - [Selection Sort](#SelectionSort)
+
+- ## Bubble Sort
+  - [`C++`](code/BubbleSort/BubbleSort.cpp)
+  - [`Python`](code/BubbleSort/BubbleSort.py)
+  - [`Java`](code/BubbleSort/BubbleSort.java)
+- ## Counting Sort
+  - [`C++`](/Practica01/code/CountingSort/CountingSort.cpp)
+  - [`Python`](/Practica01/code/CountingSort/CountingSort.py)
+  - [`Java`](/Practica01/code/CountingSort/CountingSort.java)
+- ## Heap Sort
+  - [`C++`](code/BubbleSort/BubbleSort.cpp)
+  - [`Python`](code/BubbleSort/BubbleSort.py)
+  - [`Java`](code/BubbleSort/BubbleSort.java)
+- ## Insertion Sort
+  - [`C++`](code/BubbleSort/BubbleSort.cpp)
+  - [`Python`](code/BubbleSort/BubbleSort.py)
+  - [`Java`](code/BubbleSort/BubbleSort.java)
+- ## Merge Sort
+  - [`C++`](code/BubbleSort/BubbleSort.cpp)
+  - [`Python`](code/BubbleSort/BubbleSort.py)
+  - [`Java`](code/BubbleSort/BubbleSort.java)
+- ## Quick Sort
+  - [`C++`](code/BubbleSort/BubbleSort.cpp)
+  - [`Python`](code/BubbleSort/BubbleSort.py)
+  - [`Java`](code/BubbleSort/BubbleSort.java)
+- ## Selection Sort
+  - [`C++`](code/BubbleSort/BubbleSort.cpp)
+  - [`Python`](code/BubbleSort/BubbleSort.py)
+  - [`Java`](code/BubbleSort/BubbleSort.java)
