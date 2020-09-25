@@ -1,7 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-t, a = np.loadtxt('../../data/MergeSort/valores_c++.txt',
+t, a = np.loadtxt('../../data/MergeSort/valores_cpp.txt',
                   delimiter=',',
                   unpack=True)
 x, y = np.loadtxt('../../data/MergeSort/valores_python.txt',

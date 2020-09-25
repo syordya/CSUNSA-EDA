@@ -1,7 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-t, a = np.loadtxt('../../data/HeapSort/valores_c++.txt',
+t, a = np.loadtxt('../../data/HeapSort/valores_cpp.txt',
                   delimiter=',',
                   unpack=True)
 x, y = np.loadtxt('../../data/HeapSort/valores_python.txt',

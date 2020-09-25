@@ -1,25 +1,25 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-a, b = np.loadtxt('../../data/BubbleSort/valores_c++.txt',
+a, b = np.loadtxt('../../data/BubbleSort/valores_cpp.txt',
                   delimiter=',',
                   unpack=True)
-c, d = np.loadtxt('../../data/CountingSort/valores_c++.txt',
+c, d = np.loadtxt('../../data/CountingSort/valores_cpp.txt',
                   delimiter=',',
                   unpack=True)
-e, f = np.loadtxt('../../data/HeapSort/valores_c++.txt',
+e, f = np.loadtxt('../../data/HeapSort/valores_cpp.txt',
                   delimiter=',',
                   unpack=True)
-g, h = np.loadtxt('../../data/InsertionSort/valores_c++.txt',
+g, h = np.loadtxt('../../data/InsertionSort/valores_cpp.txt',
                   delimiter=',',
                   unpack=True)
-i, j = np.loadtxt('../../data/MergeSort/valores_c++.txt',
+i, j = np.loadtxt('../../data/MergeSort/valores_cpp.txt',
                   delimiter=',',
                   unpack=True)
-k, l = np.loadtxt('../../data/QuickSort/valores_c++.txt',
+k, l = np.loadtxt('../../data/QuickSort/valores_cpp.txt',
                   delimiter=',',
                   unpack=True)
-m, n = np.loadtxt('../../data/SelectionSort/valores_c++.txt',
+m, n = np.loadtxt('../../data/SelectionSort/valores_cpp.txt',
                   delimiter=',',
                   unpack=True)
 plt.plot(a, b, color="blue", label="BubbleSort")
