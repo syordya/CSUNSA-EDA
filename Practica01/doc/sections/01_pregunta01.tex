@@ -1,8 +1,18 @@
 \section*{Ejercicio \#1}
-Comenzamos desarrollando un pequeño código en C++ que permite generar números aleatorios y almacenarlos en un archivo de texto, esto con el fin de poder analizar el mismo conjunto de datos entre los diferentes algoritmos;el código correspondiente lo pueden hallar en este \href{https://github.com/syordya/CSUNSA-EDA}{repositorio}.
+La figura \ref{fig:generador} presenta un código en lenguaje \verb!C++! para generar vectores de números aleatorios. Se empiezan con tamaños de diez mil en diez mil hasta llegar a dos cientos mil, generado así veinte muestras.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{generador}
+  \caption{Generador de números aleatorios.}
+  \label{fig:generador}
+\end{figure}
 
-% ---- Para poner dos imágenes (una a lado de otra) ----
+El resultado se puede guardar en un archivo de texto, para pasarlo como entrada a ejecutables. Esto con el fin de poder analizar sobre el mismo conjunto de datos la \textit{performance} de los diferentes algoritmos de ordenamiento.
+
+El código correspondiente se encuentra en la carpeta \href{https://github.com/syordya/CSUNSA-EDA/tree/master/Practica01/utils}{utils} del repositorio de la Práctica01.
+
 \iffalse
+% ---- Para poner dos imágenes (una a lado de otra) ----
 Como se muestra en la figuras \ref{fig:act-1_a} y \ref{fig:act-1_b}.
 \begin{figure}[H]
 \centering
