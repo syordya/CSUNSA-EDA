@@ -6,7 +6,7 @@
 \author{- Castillo Caccire, Kemely Francis\\
         - Chullunquía Rosas, Sharon Rossely\\
         - Santos Apaza, Yordy Williams\\
-        - Zúñiga Coayla, Jerson}
+        - Zúñiga Coayla, Jerson (tu amorcito xdd)}
 \date{\today}
 
 \makeatletter
@@ -16,17 +16,37 @@
 \makeatother
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{\thetitle}
+\lhead{Estructuras de Datos Avanzados}
+\rhead{\thetitle}
 \cfoot{\thepage}
+
+
 
 \begin{document}
 
 \import{./}{title.tex}
 
-\import{sections/}{pregunta01.tex}
-\import{sections/}{pregunta02.tex}
-\import{sections/}{pregunta03.tex}
 
-\printbibliography[heading=bibintoc]
+\import{sections/}{01_pregunta01.tex}
+\import{sections/}{02_pregunta02.tex}
+\import{sections/}{03_pregunta03.tex}
+
+% \printbibliography[heading=bibintoc]
+
+\newpage
+\begin{thebibliography}{8}
+
+\bibitem{ref_url1}
+Jacinto Ruiz Catalán, \textit{COMPILADORES. Teoría e implementación}, 2010.
+\url{https://books.google.com.pe/books?id=yG6qJBAnE9UC&pg=PA1&dq=que+es+un+compilador+en+programacion&hl=es&sa=X&ved=2ahUKEwiHuc69s_XqAhXjkOAKHSL1BAEQ6AEwAnoECAAQAg#v=onepage&q&f=false} 
+
+\bibitem{ref_url2}
+Alfred Aho, Ravi Sethi, Jeffrey Ullman, Monica S. Lam. \textit{Compilers: Principles, Techniques, and Tools}.
+
+\bibitem{ref_url3}
+Stephen C. Johnson. YACC: Yet another compiler-compiler. \textit{Unix Programmer's Manual Vol 2b}.
+
+
+\end{thebibliography}
 
 \end{document}
