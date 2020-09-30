@@ -26,8 +26,9 @@ La idea de este algoritmo de ordenación consiste en ir insertando un elemento d
 
 ### Selection sort
 En general : 
- - Busca el mínimo elemento entre una posición i y el final de la lista
- - Intercambia el mínimo con el elemento de la posición i
+ - Busca el mínimo elemento entre una posición i y el final de la lista.
+ - Intercambia el mínimo con el elemento de la posición i.
+
 ![SelectionSort animation](/Practica01/images/+/selection.gif)
 
 ## Enlaces Interesantes(Videos/Paginas)
