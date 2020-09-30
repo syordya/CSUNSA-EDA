@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Specifics
 entrada.txt
 
@@ -8,6 +9,8 @@ entrada.txt
 # IDE settings
 .vscode/*
 
+=======
+>>>>>>> teamwork-overleaf
 # -------------------- LaTeX --------------------  
 ## Core latex/pdflatex auxiliary files:
 *.aux
@@ -29,4 +32,8 @@ entrada.txt
 
 ## Build tool auxiliary files:
 *.fdb_latexmk
+<<<<<<< HEAD
 *.synctex.gz
+=======
+*.synctex.gz
+>>>>>>> teamwork-overleaf
