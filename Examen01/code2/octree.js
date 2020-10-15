@@ -1,5 +1,5 @@
 
-var alpha = 0.2;
+
 class Point {
     //Posicion x , y , z
     constructor (x, y, z ){
@@ -56,7 +56,7 @@ class OcTree {
         this.color = new THREE.Color( Math.random()*1,Math.random()*1,Math.random()*1);
         //CUBO
         this.geometry = new THREE.BoxGeometry(cubo.w*2,cubo.h*2,cubo.d*2);
-        this.material = new THREE.MeshBasicMaterial( { color: 0x00ff00, opacity: alpha , transparent: true, } );
+        this.material = new THREE.MeshBasicMaterial( { color: 0x00ff00, opacity: 0.2 , transparent: true, } );
         this.material.color.set(this.color);
         this.cube = new THREE.Mesh( this.geometry, this.material );
         this.cube.position.set(cubo.x,cubo.y,cubo.z);
@@ -125,7 +125,7 @@ class OcTree {
         this.southeastb = new OcTree(seb, this.capacity);
         this.southwestb = new OcTree(swb, this.capacity);
 
-        //alpha = alpha + 0.1;
+        
         //Hacer : this . divided <- true
         this.divided = true;
 
