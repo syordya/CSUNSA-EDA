@@ -10,8 +10,8 @@ Un octree es una estructura en "árbol" de datos en la cual cada nodo interno ti
 ### Resultado
 ![Octree animation](/Examen01/imgs/octree.gif)
 El siguiente Octree contiene las siguientes funciones :
-- Insertion : Inserción
-- Query : Consulta puntos en el octree
-- Squery : Muestra la region de consulta
-- CleanQuery : Limpia las consultas ya realizadas
-- Points : Muestra la cantidad de puntos encontrados
+- *Insertion* : Función que inserta puntos en el octree.
+- *Query* : Consulta puntos en el octree.
+- *Squery* : Muestra la region de consulta en el octree.
+- *CleanQuery* : Limpia las consultas ya realizadas.
+- *Points* : Muestra la cantidad de puntos encontrados.
