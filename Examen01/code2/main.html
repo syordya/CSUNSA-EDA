@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width,inicial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <title>Octree</title>
+        <style>
+            body {margin: 0}
+            canvas {width:100%;height:100%;}
+        </style>
+    </head>
+
+    <body>
+        <h3></h3>
+
+        <input type="text" id="M" placeholder="size" size="2">
+        <input type="text" id="N1" placeholder="n" size="1">
+        <button onclick="create()">Create</button>
+        
+        <input type="text" id="N2" placeholder="n" size="1">
+        <button onclick="nrand()">Random</button>
+
+
+        <input type="text" id="X" placeholder="x" size="1">
+        <input type="text" id="Y" placeholder="y" size="1">
+        <input type="text" id="Z" placeholder="z" size="1">
+        
+        <button onclick="insert()">Insert</button>
+        
+
+        <input type="text" id="CX" placeholder="x" size="1">
+        <input type="text" id="CY" placeholder="y" size="1">
+        <input type="text" id="CZ" placeholder="z" size="1">
+
+        <input type="text" id="CW" placeholder="w" size="1">
+        <input type="text" id="CH" placeholder="h" size="1">
+        <input type="text" id="CD" placeholder="d" size="1">
+        
+        <button onclick="query()">Query</button>
+        <button onclick="squery()">Show Query</button>
+        <button onclick="dquery()">Clean Query</button>
+        <button onclick="clean()">Delete</button>
+        <h3></h3>
+
+        <div id="found"></div> 
+
+        <h3></h3>
+        
+        <script>
+
+        function create(){
+            var m = document.getElementById("M").value;
+            var n = document.getElementById("N1").value;
+            createOctree(m,n);
+        }
+
+        function insert() {
+            var px = document.getElementById("X").value;
+            var py = document.getElementById("Y").value;
+            var pz = document.getElementById("Z").value;
+            let point = new Point(px,py,pz);
+            octree.insert(point);
+        }
+        
+        function query(){
+            dquery();
+            var cx = document.getElementById("CX").value;
+            var cy = document.getElementById("CY").value;
+            var cz = document.getElementById("CZ").value;
+            var cw = document.getElementById("CW").value;
+            var ch = document.getElementById("CH").value;
+            var cd = document.getElementById("CD").value;
+            let cubo = new Cubo(cx,cy,cz,cw,ch,cd);
+            let found = [];
+            octree.query(cubo,found);
+            document.getElementById("found").innerHTML = "Found points : " + found.length;
+        }
+
+        function squery(){
+            dquery();
+            var cx = document.getElementById("CX").value;
+            var cy = document.getElementById("CY").value;
+            var cz = document.getElementById("CZ").value;
+            var cw = document.getElementById("CW").value;
+            var ch = document.getElementById("CH").value;
+            var cd = document.getElementById("CD").value;
+            var geometry = new THREE.BoxGeometry(cw*2,ch*2,cd*2);
+            var material = new THREE.MeshBasicMaterial( { color: 0x00ff00, opacity: alpha , transparent: false, } );
+            material.color.set(this.color);
+            var cube = new THREE.Mesh( geometry, material );
+            cube.position.set(cx,cy,cz);
+            q = cube;
+            scene.add(q);
+        }
+
+        function dquery(){
+            var cx = document.getElementById("CX").value;
+            var cy = document.getElementById("CY").value;
+            var cz = document.getElementById("CZ").value;
+            var cw = document.getElementById("CW").value;
+            var ch = document.getElementById("CH").value;
+            var cd = document.getElementById("CD").value;
+            let cubo = new Cubo(cx,cy,cz,cw,ch,cd);
+            octree.cleanQuery(cubo);
+            scene.remove(q);
+            q = null;
+        }
+
+        function nrand(){
+            var nr = document.getElementById("N2").value;
+            var m = document.getElementById("M").value;
+            rand(nr,m);
+        }
+
+        function clean(){
+            scene = new THREE.Scene();
+            scene.add( axisHelper );
+        }
+
+        </script>
+        <script src="Librerias/three.js"></script>
+        <script src="Librerias/OrbitControls.js"></script>
+        <script src="octree.js"></script>
+        <script src="sketch.js"></script>
+    </body>
+</html>
