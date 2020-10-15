@@ -25,27 +25,23 @@ class Cubo{
         this.d = d;//profundidad
     }
     // verifica si este objeto contiene un objeto Punto
-    contains ( point ){
-        if(point.x >= this.x - this.w && 
-           point.x <= this.x + this.w &&
-           point.y >= this.y - this.h &&
-           point.y <= this.y + this.h &&
-           point.z >= this.z - this.d && 
-           point.z <= this.z + this.d )
-                return true;
-        return false;
+    contains(point){
+        return (point.x >= (this.x - this.w) && 
+        point.x <= (this.x + this.w) && 
+        point.y >= (this.y - this.h) && 
+        point.y <= (this.y + this.h) &&
+        point.z >= (this.z - this.d) &&
+        point.z <= (this.z + this.d)); 
     }
 
     // verifica si este objeto se intersecta con otro objeto Cubo
     intersects(range){
-        if(range.x - range.w > this.x + this.w ||
-           range.x + range.w < this.x - this.w ||
-           range.y - range.h > this.y + this.h ||
-           range.y + range.h < this.y - this.h ||
-           range.z - range.d > this.z + this.d ||
-           range.z + range.d < this.z - this.d )
-            return false;
-        return true;
+        return !(range.x - range.w > this.x + this.w  ||
+        range.x + range.w < this.x - this.w  ||
+        range.y - range.h > this.y + this.h  ||
+        range.y + range.h < this.y - this.h  ||
+        range.z - range.d > this.z + this.d  ||
+        range.z + range.d < this.z - this.d);
     }
 }
 
@@ -70,7 +66,7 @@ class OcTree {
     insert(point){
         //Si el punto no esta en los limites (cubo)del octree Return
         if (!this.cubo.contains(point)) {
-            return;
+            return false;
         }
         //Si ( this . points . length ) < ( this . capacity )
         if (this.points.length < this.capacity) {
@@ -78,6 +74,7 @@ class OcTree {
             this.points.push(point);
             //Color a la esfera
             point.material.color.set(this.color);
+            return true;
           
         }
         else{
@@ -85,7 +82,7 @@ class OcTree {
             if (!this.divided){
                 this.subdivide();
             }
-            //Insertamos recursivamente en los 4 hijos
+            //Insertamos recursivamente en los 8 hijos
             this.northeastf.insert(point); 
             this.northwestf.insert(point);
             this.southeastf.insert(point); 
@@ -128,7 +125,7 @@ class OcTree {
         this.southeastb = new OcTree(seb, this.capacity);
         this.southwestb = new OcTree(swb, this.capacity);
 
-        alpha = alpha + 0.1;
+        //alpha = alpha + 0.1;
         //Hacer : this . divided <- true
         this.divided = true;
 
@@ -143,12 +140,12 @@ class OcTree {
         if(!range.intersects(this.cubo)){
             return found;
         }
-        //Ciclo por cada punto del queadtree
+        //Ciclo por cada punto del ocdtree
         for(let p of this.points){
             //Verificamos si esta dentro del rango
             if(range.contains(p)){
                 //1 1 1 blanco / Cambia este color 
-                p.material.color.set(new THREE.Color(1,1,1));
+                p.material.color.set(new THREE.Color(0,0,0));
                 //Lo insertamos en el vector found
                 found.push(p);
                 //count++;
@@ -174,12 +171,15 @@ class OcTree {
             return;
         }
         else{
+            //Ciclo por cada punto del ocdtree
             for(let p of this.points){
+                //Verificamos si esta dentro del rango
                 if(range.contains(p)){
                     //Vuelve a su color
                     p.material.color.set(this.color);
                 }
             }
+            //Llamamos recursivamente a cada hijo
             if(this.divided){
                 this.northwestf.cleanQuery(range);
                 this.northeastf.cleanQuery(range);
