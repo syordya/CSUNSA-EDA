@@ -3,13 +3,13 @@ var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeig
 var renderer = new THREE.WebGLRenderer();
 var controls = new THREE.OrbitControls( camera, renderer.domElement );
 renderer.setSize( window.innerWidth, window.innerHeight );
+scene.background = new THREE.Color( 0xffffff);
 document.body.appendChild( renderer.domElement );
 
 camera.position.y = -20;
 camera.position.x = -100;
 camera.position.z = -100;
-
-var light = new THREE.DirectionalLight( 0xffffff, .8 );
+var light = new THREE.DirectionalLight( 0xffffff, 0.8 );
 light.position.set( -100, 100, 0 );
 camera.add( light );
 scene.add( camera );
