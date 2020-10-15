@@ -110,7 +110,7 @@
             var ch = document.getElementById("CH").value;
             var cd = document.getElementById("CD").value;
             var geometry = new THREE.BoxGeometry(cw*2,ch*2,cd*2);
-            var material = new THREE.MeshBasicMaterial( { color: 0x000000, opacity: 0.8 , transparent: true, } );
+            var material = new THREE.MeshBasicMaterial( { color: 0x000000, opacity: 0.8 , transparent: false, } );
             material.color.set(this.color);
             var cube = new THREE.Mesh( geometry, material );
             cube.position.set(cx,cy,cz);
