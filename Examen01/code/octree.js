@@ -46,7 +46,7 @@ class Cubo {
 class OcTree {
   constructor(cubo, n) {
     this.cubo = cubo; // cubo
-    this.capacity = n; // capacidad maxima de cada cuadrante
+    this.capacity = n; // capacidad maxima de cada octante
     this.points = []; // vector , almacena los puntos a almacenar
     this.divided = false;
     //Math.random() retorna un punto flotante, un número pseudo-aleatorio dentro del rango [0, 1).
@@ -134,7 +134,7 @@ class OcTree {
     if (!found) {
       found = [];
     }
-    //no se intercepta con los limites del cuadrante
+    //no se intercepta con los limites del octante
     if (!range.intersects(this.cubo)) {
       return found;
     }
