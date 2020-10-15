@@ -4,10 +4,15 @@ var renderer = new THREE.WebGLRenderer();
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-
+    
 camera.position.y = -20;
 camera.position.x = -100;
 camera.position.z = -100;
+
+var light = new THREE.DirectionalLight( 0xffffff, .8 );
+light.position.set( -range, range, 0 );
+camera.add( light );
+scene.add( camera );
 
 var axisHelper = new THREE.AxisHelper(1.25);
 scene.add(axisHelper);
