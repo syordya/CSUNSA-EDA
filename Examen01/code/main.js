@@ -10,7 +10,7 @@ camera.position.x = -100;
 camera.position.z = -100;
 
 var light = new THREE.DirectionalLight( 0xffffff, .8 );
-light.position.set( -range, range, 0 );
+light.position.set( -100, 100, 0 );
 camera.add( light );
 scene.add( camera );
 
