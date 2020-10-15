@@ -5,8 +5,8 @@ Un octree es una estructura en "árbol" de datos en la cual cada nodo interno ti
   <img width="50%" height="50%" src="https://github.com/syordya/CSUNSA-EDA/blob/master/Examen01/Img/octree.gif">
 </p>
 El siguiente Octree contiene las siguientes funciones :
-- Insertion : Inserción
-- Query : Consulta puntos en el octree
-- Squery : Muestra la region de consulta
-- CleanQuery : Limpia las consultas ya realizadas
-- Points : Muestra la cantidad de puntos encontrados
+* _Insertion_ : Inserción
+* Query : Consulta puntos en el octree
+* Squery : Muestra la region de consulta
+* CleanQuery : Limpia las consultas ya realizadas
+* Points : Muestra la cantidad de puntos encontrados
