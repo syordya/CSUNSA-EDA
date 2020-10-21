@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<title>Octree</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+  .w3-container {
+    width: 60%;
+    background-color: darkgreen;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    margin-right: 24vh;
+
+  }
+
+  input::placeholder {
+    text-align: center;
+  }
+
+  .w3-container>h1 {
+    white-space: nowrap;
+  }
+
+  #mySidebar {
+    text-align: center;
+    border: 1px solid green;
+
+  }
+
+  button {
+    text-decoration: none;
+    padding: 2px;
+    font-size: 20px;
+    color: white;
+    background-color: #3fa59d;
+    border-radius: 4px;
+    border: 1px solid black;
+  }
+</style>
+
+<body>
+
+  <div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left" style="width:200px;" id="mySidebar">
+    <h3></h3>
+
+
+    <input type="text" id="N2" placeholder="n° puntos " size="6"><br>
+    <button onclick="nrand()">Generar</button><br>
+    <h3></h3>
+    <input type="text" id="X" placeholder="x" size="1"><br>
+    <input type="text" id="Y" placeholder="y" size="1"><br>
+    <input type="text" id="Z" placeholder="z" size="1"><br>
+    <button onclick="insertar()">Insertar</button><br>
+    <h3></h3>
+
+    <input type="text" id="CX" placeholder="x" size="1"><br>
+    <input type="text" id="CY" placeholder="y" size="1"><br>
+    <input type="text" id="CZ" placeholder="z" size="1"><br>
+
+    <input type="text" id="CW" placeholder="w" size="1"><br>
+    <input type="text" id="CH" placeholder="h" size="1"><br>
+    <input type="text" id="CD" placeholder="d" size="1"><br>
+
+    <button onclick="query()">🔎</button><br>
+    <p id="demo">Puntos : 0</p>
+    <button onclick="squery()">&nbsp Ver &nbsp</button><br>
+    <h3></h3>
+    <button onclick="dquery()">🧹</button><br>
+    <h3></h3>
+    <button onclick="clean()">❌</button><br>
+    <h3></h3>
+  </div>
+
+
+  <div class="w3-main" style="margin-left:200px">
+    <div class="w3-teal">
+      <div class="w3-container">
+        <h1> &nbsp Octree &nbsp</h1>
+        <button onclick="crear()"> &nbsp ▶ &nbsp</button><br>
+      </div>
+    </div>
+
+    <div class="w3-container">
+    <script src="main.js"></script>
+    </div>
+
+  </div>
+
+
+
+</body>
+
+</html>
