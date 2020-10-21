@@ -8,6 +8,10 @@ entrada.txt
 # IDE settings
 .vscode/*
 
+# -------------------- Node --------------------  
+## Dependency directories
+node_modules/
+
 # -------------------- LaTeX --------------------  
 ## Core latex/pdflatex auxiliary files:
 *.aux
