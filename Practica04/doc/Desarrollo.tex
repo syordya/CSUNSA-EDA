@@ -1,0 +1,315 @@
+\section{Instalaci\'on}
+\item Para instalar webpack, se debe tener primero node instalado en el equipo. 
+\item A través del siguiente comando, le indicamos a npm, el gestor de paquetes de node, que se desea  instalar en la carpeta actual, y guardarlo como dependencia del entorno de desarrollo:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.9]{Imagenes/webpack1.png}
+    \caption{Instalaci\'on desde consola}
+    \label{fig:my_label}
+\end{figure}
+
+\section{Configuraci\'on}
+
+\item Desde la versión 4 una de las cosas en las que se han esforzado los desarrolladores de webpack, es facilitarnos el proceso de configuración de la herramienta e incluso desde esta versión ya se puede comenzar a trabajar sin un archivo de configuración, siguiendo estos sencillos pasos:
+
+\begin{enumerate}
+    \item Crear un nuevo directorio:\\
+    
+     \shadowbox{
+        \begin{minipage}[c][1.1\height] [c]{0.6\textwidth}
+        \newline
+         mkdir webpack-starter-kit && cd webpack-starter-kit
+        \end{minipage}
+     }\\
+     
+    \item Iniciar un proyecto Node:\\
+    
+     \shadowbox{
+        \begin{minipage}[c][1.1\height] [c]{0.5\textwidth}
+        \newline
+         npm init 
+        \end{minipage}
+     }\\
+    
+    \item Instalar webpack y su cli:\\
+    
+    \shadowbox{
+        \begin{minipage}[c][1.1\height] [c]{0.5\textwidth}
+        \newline
+         npm i -D webpack webpack-cli
+        \end{minipage}
+     }\\
+    
+    \item En el package.json agrega el siguiente comando:\\
+    
+    \shadowbox{
+        \begin{minipage}[c][1.1\height] [c]{0.5\textwidth}
+        \newline
+        "scripts" :  \left\lbrace\\
+          "build" : "webpack"\\
+        \right\rbrace
+        \end{minipage}
+     }\\
+    
+    \newpage
+    \item Ejecuta el comando:\\
+    
+     \shadowbox{
+        \begin{minipage}[c][1.1\height] [c]{0.5\textwidth}
+        \newline
+         npm run build
+        \end{minipage}
+     }\\
+    
+    \item El comando arrojará un error:\\
+    
+    \shadowbox{
+        \begin{minipage}[c][1.1\height] [c]{0.97\textwidth}
+        \newline
+         ERROR in Entry module not found: Error: Can't resolve './src' in '~/webpack-starter-kit'
+        \end{minipage}
+     }\\
+    
+    \begin{itemize}
+        \item Webpack está buscando un punto de entrada en \textbf{./src}. Sin Archivo de configuración.
+        \item A partir de la versión 4 no es necesario definir el punto de entrada, tomará \textbf{./src/index.js} como valor predeterminado.
+        \item En versiones anteriores, el punto de entrada debe definirse dentro del archivo de configuración denominado \textbf{webpack.config.js}.
+
+    \end{itemize}
+    
+    \item Crear el archivo \textbf{./src/index.js} y escribir:\\
+    
+        \shadowbox{
+        \begin{minipage}[c][1.1\height] [c]{0.7\textwidth}
+        \newline
+        console.log('Hola mundo sin configuración con Webpack')
+        \end{minipage}
+     }\\
+    
+    \item Ejecuta nuevamente el comando build y webpack en automático nos habrá generado el archivo de salida \textbf{./dist/main,js}
+\end{enumerate}
+
+\newpage
+\section{Modo de producción y desarrollo}
+\item En webpack un patrón común es tener 2 archivos de configuración uno para las tareas de desarrollo y otro para las de producción.
+
+\item Mientras que para proyectos grandes aún se pueden necesitar 2 archivos, en proyectos pequeños, es posible especificar el tipo de configuración en una sola línea de configuración.
+
+\item Webpack 4 introduce el modo de producción y el modo de desarrollo.
+
+\item De hecho cuando corrimos el comando build la terminal nos mando un mensaje de advertencia:\\
+
+\shadowbox{
+        \begin{minipage}[c][1.1\height] [c]{0.97\textwidth}
+        \newline
+        WARNING in configuration\\
+        The 'mode' option has not been set, webpack will fallback to 'production' for this value. Set\\ 'mode' option to 'development' or 'production' to enable defaults for each environment.\\
+        You can also set it to 'none' to disable any default behavior. Learn more:\\ https://webpack.js.org/concepts/mode/
+
+        \end{minipage}
+     }\\
+
+\item La opción 'modo' no se ha configurado. Establezca la opción 'modo' en 'desarrollo' o 'producción' para habilitar los valores predeterminados para este entorno.
+
+\item Vamos a crear un comando para cada ambiente:
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.6]{Imagenes/wp08.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\item Ejecutamos ambos comandos y miremos el archivo \textbf{./dist/main.js} después de ejecutarlos:
+\begin{itemize}
+    \item \textbf{npm run dev} generará un archivo indentado y con comentarios.
+    \item \textbf{npm run build} generará un archivo minificado y sin comentarios
+\end{itemize}
+
+\item Modificando puntos de entrada y salida predeterminados:
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.6]{Imagenes/wp09.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\newpage
+\section{Transpilando Javascript ES6 con Babel}
+\item Webpack por sí sólo no sabe como transpilar código ES6, pero tiene un loader que lo hace.
+
+\item Instala babel-loader y sus dependencias:
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{Imagenes/wp10.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\item Ahora crea el archivo .babelrc con el siguiente código:
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{Imagenes/wp11.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\item En este punto tenemos 2 opciones para configurar babel-loader:
+\begin{enumerate}
+    \item Sin archivo de configuración.
+    \item Con archivo de configuración.
+\end{enumerate}
+
+\item Escribe el siguiente código en tu archivo \textbf{./src/index.js}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{Imagenes/wp12.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\newpage
+\subsection{Sin archivo de configuración}
+\item Se agrega la opción \textbf{--module-bind} con el valor \textbf{js=babel.loader}:
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{Imagenes/wp13.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\item Ejecutemos ambos comandos y miremos el archivo \textbf{./dist/main.js} después de ejecutarlos:
+\begin{itemize}
+    \item \textbf{npm run dev-babel} transpiló el archivo con sintaxis ES6 a ES5 indentado y con comentarios.
+    \item \textbf{npm run build-babel} transpiló el archivo con sintaxis ES6 a ES5 minificado y sin comentarios.
+\end{itemize}
+
+\subsection{Con archivo de configuración.}
+\item Crea el archivo webpack.config.js y escribe el siguiente código:
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{Imagenes/wp14.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\item Ejecutar los comandos dev y build y miremos el archivo \textbf{./dist/main.js} después de ejecutarlos:
+
+\begin{itemize}
+    \item \textbf{npm run dev} transpiló el archivo con sintaxis ES6 a ES5 indentado y con comentarios, gracias a la configuración del archivo webpack.config.js.
+    \item \textbf{npm run build} transpiló el archivo con sintaxis ES6 a ES5 minificado y sin comentarios, gracias a la configuración del archivo webpack.config.js.
+\end{itemize}
+
+\newpage
+\section{Inyección de JS en HTML}
+\item Para inyectar el código dinámico que genera webpack en los archivos HTML, necesita 2 dependencias : \textbf{html-webpack-plugin} y \textbf{html-loader.}
+\item Instalar las dependencias:
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{Imagenes/wp15.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\item Agregar la siguiente regla al archivo \textbf{ webpack.config.js:}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{Imagenes/wp16.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\newpage
+\item Ahora crea el archivo \textbf{./src/index.html:}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{Imagenes/wp17.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\item Ejecutemos los comandos dev o build y miremos el archivo \textbf{./dist/index.html} después de ejecutarlos.
+
+\item No es necesario incluir el JavaScript dentro del archivo HTML, webpack lo ha inyectado automáticamente y ha minificado el código
+
+\section{Extracción de CSS}
+\item Webpack por sí sólo no sabe como extraer código CSS en un archivo externp, pero tiene un loader y un plugin que lo hace.
+
+\item Instalar las dependencias:
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{Imagenes/wp18.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\item Agregar la siguiente regla al archivo \textbf{ webpack.config.js:}
+\newpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.62]{Imagenes/wp19.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\newpage
+\item Ahora crea el archivo \textbf{./src/style.css} con algo de código:
+\begin{figure}[h]
+   \centering
+    \includegraphics[scale=0.7]{Imagenes/wp20.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\item Ahora importamos los estilos desde el punto de entrada, el archivo \textbf{./src/index.js:}
+\begin{figure}[h]
+   \centering
+    \includegraphics[scale=0.7]{Imagenes/wp21.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\item Ejecutemos los comandos \textit{dev} o \textit{build} y miremos el archivo \textbf{./dist/index.html} después de ejecutarlos.
+
+\item No es necesario incluir el CSS dentro del archivo HTML, webpack lo ha inyectado automáticamente y ha creado el archivo de estilos \textbf{main.css}
+
+
+\section{Servidor Web de Desarrollo}
+\item No es muy óptimo estar ejecutando el comando dev cada vez que hacemos un cambio en nuestra aplicación lo ideal es configurar un servidor web de prueba que en automático recompile nuestro código y recargue el navegador.
+
+\item Webpack, cuenta con su propio servido de desarrollo.
+\item Instalar la dependencia:
+\begin{figure}[h]
+   \centering
+    \includegraphics[scale=0.7]{Imagenes/wp22.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\newpage
+\item Agregar el comando start a nuestro \textbf{package.json:}
+\begin{figure}[h]
+   \centering
+    \includegraphics[scale=0.7]{Imagenes/wp23.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\item Al ejecutar, webpack abrirá la aplicación en una ventana del navegador.
+\begin{figure}[h]
+   \centering
+    \includegraphics[scale=0.7]{Imagenes/wp24.png}
+    %\caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\item Como se puede ver  ahora es mucho más facil comenzar a desarrollar aplicaciones con flujos de trabajo modernos y herramientas como webpack
+
+\section{Conclusiones}
+\begin{enumerate}
+    \item Webpack es una herramienta muy potente que nos permite empaquetar todo tipo de recursos ya sean estáticos o dinámicos de una forma eficiente a través de sus gráficos de  dependencias. 
+    \item Tener todos los recursos en un mismo archivo de javascript, permite disminuir los tiempos de carga de la web, evitando peticiones innecesarias. 
+    \item Es cierto que al tratarse de javascript, tendremos un retardo en la carga de toda la lógica, pero si gestionamos de forma óptima los recursos, podemos evitar que los tiempos sea superiores respecto a las múltiples peticiones que puede realizar una página hacia el servidor. 
+    \item Así mismo, nos permite regenerar todos los recursos a través de su funcionalidad nombrada anteriormente, para evitar el paso por la consola en tiempo de desarrollo.
+\end{enumerate}
+

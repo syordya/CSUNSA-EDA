@@ -1,0 +1,36 @@
+\section{Definici\'on}
+
+
+\doublebox{
+    \begin{minipage}[c][1.2\height] [c]{1\textwidth}
+    \newline
+    Es un empaquetador de archivos para aplicaciones JavaScript modernas, totalmente configurable y a diferencia de los Task Runners (como Grunt y Gulp) donde los procesos se gestionan de forma separada, en webpack, se conoce el origen y todo se compila en un único archivo.
+
+    Crea una gráfica de todas las dependencias de la aplicación. Tiene un archivo de configuración, denominado webpack.config.js, donde se define todo el proceso de construcción en un objeto JS.
+    \end{minipage}
+}\\
+
+\item Webpack tiene 4 conceptos clave:
+\begin{enumerate}
+    \item \textbf{Entry:} Indica cuál es el punto(s) de entrada.
+    \item \textbf{Output:} Indica cuál es el punto(s) de salida.
+    \item \textbf{Loaders:} Realizan transformaciones en los archivos.
+    \item \textbf{Plugins:} Realizan acciones en los archivos.
+\end{enumerate}
+
+\section{Beneficios}
+\begin{itemize}
+    \item Es una herramienta que nos permite automatizar tareas repetitivas.
+    \item Modularizar las diferentes secciones de nuestro proyecto.
+    \item Posibilidad de elección en función del tipo de asset(minificación de imágenes, etc).
+    \item Tiene una comunidad muy activa, y cuenta con un gran apoyo por parte de empresas como egghead.io, rollbar, etc.
+    \item Aunque en su primera versión era uno de los principales inconvenientes, en su segunda versión cuenta con una documentación de calidad.
+    \item Optimiza la velocidad de carga de la web.
+\end{itemize}
+
+\section{Desventajas}
+\begin{itemize}
+    \item En proyectos en los que la gestión de los assets no represente un problema, o el proyecto sea pequeño.
+    \item La separación entre las secciones sea difusa o difícilmente modularizable.
+    \item La curva de aprendizaje es elevada, necesita mucha configuración y es compleja al principio.
+\end{itemize}
