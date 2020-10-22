@@ -1,3 +1,6 @@
+# Codigo referencia : http://delimitry.blogspot.com/2016/02/octree-color-quantizer-in-python.html
+
+
 class Color(object):
 	def __init__(self, red=0, green=0, blue=0):
 		self.red = red
