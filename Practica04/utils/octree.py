@@ -20,7 +20,7 @@ class NodoOctree(object):
 		return self.cont_pixel > 0;
 
 	#Lea los pixeles de una imagen
-    #Obtenga una suma de la cantidad de píxeles para el nodo y sus hijos
+        #Obtenga una suma de la cantidad de píxeles para el nodo y sus hijos
 	def get_cantPixeles(self):
 		suma = self.contador_pixel
 		for i in range(8):
@@ -30,7 +30,7 @@ class NodoOctree(object):
 		return 
 #Construya el Octree segun el algoritmo explicado en clases.
 class Octree(object):
-
+        MAX_DEPTH = 8
 	def __init__(self, arg):
 		self.niveles={i: [] for i in range(OctreeQuantizer.MAX_DEPTH)}
 		self.root = NodoOctree(0,self)
