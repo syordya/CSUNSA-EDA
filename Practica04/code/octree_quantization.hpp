@@ -1,22 +1,24 @@
 #include <opencv2/highgui.hpp>
 #include <vector>
-
-struct Color {
-  uint r, g, b;
-  Color(uchar _r = 0, uchar _g = 0, uchar _b = 0);
+class Color {
+public:
+    uint r, g, b;
+    Color(uchar _r = 0, uchar _g = 0, uchar _b = 0);
 };
 
-struct Node {
-  Color color;
-  int pixel;
-  bool hoja;
-  int level;
-  Node *hijo[8];
-  Node(Color _color = Color(), int _pixel = 0, bool _hoja = false,
-       int level = 0);
-  ~Node();
-  void agregar(int);
-  void eliminar();
+
+class Node {
+public:
+    Color color;
+    int pixel;
+    bool hoja;
+    int level;
+    Node* hijo[8];
+    Node(Color _color = Color(), int _pixel = 0, bool _hoja = false,
+        int level = 0);
+    ~Node();
+    void agregar(int);
+    void eliminar();
 };
 
 int get_index_level(uchar r, uchar g, uchar b, int level) {
