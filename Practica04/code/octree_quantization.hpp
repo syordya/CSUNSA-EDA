@@ -105,9 +105,9 @@ OctreeQuantizer::OctreeQuantizer()
 OctreeQuantizer::~OctreeQuantizer() { delete root; }
 
 void OctreeQuantizer::fill(cv::Mat &entry) {
-  int canal = entry.canal();
-  int filas = entry.fil;
-  int columnas = entry.col * canal;
+    int canal = entry.channels();
+    int filas = entry.rows;
+    int columnas = entry.cols * canal;
 
   if (entry.isContinuous()) {
     columnas *= filas;
@@ -148,10 +148,9 @@ void OctreeQuantizer::reduction() {
 }
 
 void OctreeQuantizer::reconstruction(cv::Mat &entry) {
-  int canal = entry.canal();
-
-  int filas = entry.fil;
-  int columnas = entry.col * canal;
+  int canal = entry.channels();
+  int filas = entry.rows;
+  int columnas = entry.cols * canal;
 
   if (entry.isContinuous()) {
     columnas *= filas;
@@ -184,10 +183,9 @@ void OctreeQuantizer::palette(cv::Mat &entry) {
   std::vector<Color> colors;
   push_colors(root, colors);
 
-  int canal = entry.canal();
-
-  int filas = entry.fil;
-  int columnas = entry.col * canal;
+  int canal = entry.channels();
+  int filas = entry.rows;
+  int columnas = entry.cols * canal;
 
   uchar *p;
 
