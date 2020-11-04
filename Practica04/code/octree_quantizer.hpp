@@ -34,7 +34,7 @@ struct Node {
   Node(Color _color = Color(), int _pixel_count = 0, bool _is_leaf = false,
        int level = 0);
   ~Node();
-  void add_level(int height);
+  void add_level(int);
   void delete_level();
 };
 
