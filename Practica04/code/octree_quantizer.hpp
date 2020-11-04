@@ -8,11 +8,11 @@ struct Color {
 
 struct Node {
   Color color;
-  int pixel_count;
-  bool is_leaf;
+  int pixel;
+  bool hoja;
   int level;
-  Node *children[8];
-  Node(Color _color = Color(), int _pixel_count = 0, bool _is_leaf = false,
+  Node *hijo[8];
+  Node(Color _color = Color(), int _pixel = 0, bool _hoja = false,
        int level = 0);
   ~Node();
   void add_level(int);
@@ -51,49 +51,49 @@ class OctreeQuantizer {
 
 Color::Color(uchar _r, uchar _g, uchar _b) : r(_r), g(_g), b(_b) {}
 
-Node::Node(Color _color, int _pixel_count, bool _is_leaf, int _level)
+Node::Node(Color _color, int _pixel, bool _hoja, int _level)
     : color(_color),
-      pixel_count(_pixel_count),
-      is_leaf(_is_leaf),
+      pixel(_pixel),
+      hoja(_hoja),
       level(_level) {
-  for (int i = 0; i < 8; i++) children[i] = nullptr;
+  for (int i = 0; i < 8; i++) hijo[i] = nullptr;
 }
 
 Node::~Node() {
-  if (is_leaf) return;
+  if (hoja) return;
 
   for (int i = 0; i < 8; i++) {
-    delete children[i];
+    delete hijo[i];
   }
 }
 
 void Node::add_level(int levels) {
   if (level >= levels) {
-    is_leaf = true;
+    hoja = true;
     return;
   }
 
   for (int i = 0; i < 8; i++) {
-    children[i] = new Node(Color(), 0, false, level + 1);
-    children[i]->add_level(levels);
+    hijo[i] = new Node(Color(), 0, false, level + 1);
+    hijo[i]->add_level(levels);
   }
 }
 
 void Node::delete_level() {
-  if (children[0]->is_leaf) {
+  if (hijo[0]->hoja) {
     for (int i = 0; i < 8; i++) {
-      pixel_count += children[i]->pixel_count;
-      color.b += children[i]->color.b;
-      color.g += children[i]->color.g;
-      color.r += children[i]->color.r;
-      delete children[i];
+      pixel += hijo[i]->pixel;
+      color.b += hijo[i]->color.b;
+      color.g += hijo[i]->color.g;
+      color.r += hijo[i]->color.r;
+      delete hijo[i];
     }
-    is_leaf = true;
+    hoja = true;
     return;
   }
 
   for (int i = 0; i < 8; i++) {
-    children[i]->delete_level();
+    hijo[i]->delete_level();
   }
 }
 
@@ -115,23 +115,23 @@ void OctreeQuantizer::fill(cv::Mat &entry) {
   }
 
   uchar *p;
-  Node *path;
+  Node *ruta;
   int i = 0;
   while (i < filas) {
     p = entry.ptr<uchar>(i);
     int j = 0;
     while (j < columnas) {
       uchar b = p[j], g = p[j + 1], r = p[j + 2];
-      path = root;
+      ruta = root;
       for (int level = 0; level < levels; level++) {
-        path = path->children[get_index_level(r, g, b, level)];
+        ruta = ruta->hijo[get_index_level(r, g, b, level)];
       }
 
-      path->color.b += b;
-      path->color.g += g;
-      path->color.r += r;
+      ruta->color.b += b;
+      ruta->color.g += g;
+      ruta->color.r += r;
 
-      ++(path->pixel_count);
+      ++(ruta->pixel);
       j += 3;
     }
     ++i;
@@ -159,21 +159,21 @@ void OctreeQuantizer::reconstruction(cv::Mat &entry) {
   }
 
   uchar *p;
-  Node *path;
+  Node *ruta;
   int i = 0;
   while (i < filas) {
     p = entry.ptr<uchar>(i);
     int j = 0;
     while (j < columnas) {
       uchar b = p[j], g = p[j + 1], r = p[j + 2];
-      path = root;
+      ruta = root;
       for (int level = 0; level < levels; level++) {
-        path = path->children[get_index_level(r, g, b, level)];
+        ruta = ruta->hijo[get_index_level(r, g, b, level)];
       }
 
-      p[j] = (path->color.b) / (path->pixel_count);
-      p[j + 1] = (path->color.g) / (path->pixel_count);
-      p[j + 2] = (path->color.r) / (path->pixel_count);
+      p[j] = (ruta->color.b) / (ruta->pixel);
+      p[j + 1] = (ruta->color.g) / (ruta->pixel);
+      p[j + 2] = (ruta->color.r) / (ruta->pixel);
       j += 3;
     }
     ++i;
@@ -212,13 +212,13 @@ void OctreeQuantizer::push_colors(Node *root, std::vector<Color> &colors) {
   if (root == nullptr) {
     return;
   }
-  if (root->is_leaf && root->pixel_count) {
-    colors.push_back(Color(root->color.r / root->pixel_count,
-                           root->color.g / root->pixel_count,
-                           root->color.b / root->pixel_count));
+  if (root->hoja && root->pixel) {
+    colors.push_back(Color(root->color.r / root->pixel,
+                           root->color.g / root->pixel,
+                           root->color.b / root->pixel));
     return;
   }
   for (uint i = 0; i < 8; i++) {
-    push_colors(root->children[i], colors);
+    push_colors(root->hijo[i], colors);
   }
 }
