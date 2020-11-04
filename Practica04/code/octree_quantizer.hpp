@@ -109,22 +109,22 @@ OctreeQuantizer::OctreeQuantizer()
 OctreeQuantizer::~OctreeQuantizer() { delete root; }
 
 void OctreeQuantizer::fill(cv::Mat &entry) {
-  int channels = entry.channels();
-  int nRows = entry.rows;
-  int nCols = entry.cols * channels;
+  int canal = entry.canal();
+  int filas = entry.fil;
+  int columnas = entry.col * canal;
 
   if (entry.isContinuous()) {
-    nCols *= nRows;
-    nRows = 1;
+    columnas *= filas;
+    filas = 1;
   }
 
   uchar *p;
   Node *path;
   int i = 0;
-  while (i < nRows) {
+  while (i < filas) {
     p = entry.ptr<uchar>(i);
     int j = 0;
-    while (j < nCols) {
+    while (j < columnas) {
       uchar b = p[j], g = p[j + 1], r = p[j + 2];
       path = root;
       for (int level = 0; level < levels; level++) {
@@ -152,23 +152,23 @@ void OctreeQuantizer::reduction() {
 }
 
 void OctreeQuantizer::reconstruction(cv::Mat &entry) {
-  int channels = entry.channels();
+  int canal = entry.canal();
 
-  int nRows = entry.rows;
-  int nCols = entry.cols * channels;
+  int filas = entry.fil;
+  int columnas = entry.col * canal;
 
   if (entry.isContinuous()) {
-    nCols *= nRows;
-    nRows = 1;
+    columnas *= filas;
+    filas = 1;
   }
 
   uchar *p;
   Node *path;
   int i = 0;
-  while (i < nRows) {
+  while (i < filas) {
     p = entry.ptr<uchar>(i);
     int j = 0;
-    while (j < nCols) {
+    while (j < columnas) {
       uchar b = p[j], g = p[j + 1], r = p[j + 2];
       path = root;
       for (int level = 0; level < levels; level++) {
@@ -188,19 +188,19 @@ void OctreeQuantizer::palette(cv::Mat &entry) {
   std::vector<Color> colors;
   push_colors(root, colors);
 
-  int channels = entry.channels();
+  int canal = entry.canal();
 
-  int nRows = entry.rows;
-  int nCols = entry.cols * channels;
+  int filas = entry.fil;
+  int columnas = entry.col * canal;
 
   uchar *p;
 
-  uint step_size = nRows / colors.size();
+  uint step_size = filas / colors.size();
   uint step = step_size;
   int c_i = 0;
-  for (int i = 0; i < nRows; ++i) {
+  for (int i = 0; i < filas; ++i) {
     p = entry.ptr<uchar>(i);
-    for (int j = 0; j < nCols; j += 3) {
+    for (int j = 0; j < columnas; j += 3) {
       p[j] = colors[c_i].b;
       p[j + 1] = colors[c_i].g;
       p[j + 2] = colors[c_i].r;
