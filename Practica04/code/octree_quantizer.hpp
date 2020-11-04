@@ -120,12 +120,12 @@ void OctreeQuantizer::fill(cv::Mat &entry) {
 
   uchar *p;
   Node *path;
-  for (int i = 0; i < nRows; ++i) {
+  int i = 0;
+  while (i < nRows) {
     p = entry.ptr<uchar>(i);
-    for (int j = 0; j < nCols; j += 3) {
-      uchar b = p[j];
-      uchar g = p[j + 1];
-      uchar r = p[j + 2];
+    int j = 0;
+    while (j < nCols) {
+      uchar b = p[j], g = p[j + 1], r = p[j + 2];
       path = root;
       for (int level = 0; level < levels; level++) {
         path = path->children[get_index_level(r, g, b, level)];
@@ -136,7 +136,9 @@ void OctreeQuantizer::fill(cv::Mat &entry) {
       path->color.r += r;
 
       ++(path->pixel_count);
+      j += 3;
     }
+    ++i;
   }
 }
 
@@ -162,14 +164,13 @@ void OctreeQuantizer::reconstruction(cv::Mat &entry) {
 
   uchar *p;
   Node *path;
-  for (int i = 0; i < nRows; ++i) {
+  int i = 0;
+  while (i < nRows) {
     p = entry.ptr<uchar>(i);
-    for (int j = 0; j < nCols; j += 3) {
-      uchar b = p[j];
-      uchar g = p[j + 1];
-      uchar r = p[j + 2];
+    int j = 0;
+    while (j < nCols) {
+      uchar b = p[j], g = p[j + 1], r = p[j + 2];
       path = root;
-
       for (int level = 0; level < levels; level++) {
         path = path->children[get_index_level(r, g, b, level)];
       }
@@ -177,7 +178,9 @@ void OctreeQuantizer::reconstruction(cv::Mat &entry) {
       p[j] = (path->color.b) / (path->pixel_count);
       p[j + 1] = (path->color.g) / (path->pixel_count);
       p[j + 2] = (path->color.r) / (path->pixel_count);
+      j += 3;
     }
+    ++i;
   }
 }
 
