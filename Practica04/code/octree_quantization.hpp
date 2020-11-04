@@ -124,12 +124,12 @@ void OctreeQuantizer::fill(cv::Mat &entry) {
       uchar b = p[j], g = p[j + 1], r = p[j + 2];
       ruta = root;
       for (int level = 0; level < levels; level++) {
-        ruta = ruta->hijo[get_index_level(r, g, b, level)];
+           ruta = ruta->hijo[get_index_level(p[j + 2], p[j + 1], p[j], level)];
       }
 
-      ruta->color.b += b;
-      ruta->color.g += g;
-      ruta->color.r += r;
+      ruta->color.b += p[j];
+      ruta->color.g += p[j + 1];
+      ruta->color.r += p[j + 2];
 
       ++(ruta->pixel);
       j += 3;
