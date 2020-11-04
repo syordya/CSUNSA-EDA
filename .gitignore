@@ -1,3 +1,7 @@
+# Images
+*.jpg
+*.jpeg
+
 # Specifics
 entrada.txt
 main.js
