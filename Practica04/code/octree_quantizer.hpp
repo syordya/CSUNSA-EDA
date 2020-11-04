@@ -15,8 +15,8 @@ struct Node {
   Node(Color _color = Color(), int _pixel = 0, bool _hoja = false,
        int level = 0);
   ~Node();
-  void add_level(int);
-  void delete_level();
+  void agregar(int);
+  void eliminar();
 };
 
 int get_index_level(uchar r, uchar g, uchar b, int level) {
@@ -67,7 +67,7 @@ Node::~Node() {
   }
 }
 
-void Node::add_level(int levels) {
+void Node::agregar(int levels) {
   if (level >= levels) {
     hoja = true;
     return;
@@ -75,11 +75,11 @@ void Node::add_level(int levels) {
 
   for (int i = 0; i < 8; i++) {
     hijo[i] = new Node(Color(), 0, false, level + 1);
-    hijo[i]->add_level(levels);
+    hijo[i]->agregar(levels);
   }
 }
 
-void Node::delete_level() {
+void Node::eliminar() {
   if (hijo[0]->hoja) {
     for (int i = 0; i < 8; i++) {
       pixel += hijo[i]->pixel;
@@ -93,13 +93,13 @@ void Node::delete_level() {
   }
 
   for (int i = 0; i < 8; i++) {
-    hijo[i]->delete_level();
+    hijo[i]->eliminar();
   }
 }
 
 OctreeQuantizer::OctreeQuantizer()
     : levels(7), root(new Node(Color(), 0, false, 0)) {
-  root->add_level(levels);
+  root->agregar(levels);
 }
 
 OctreeQuantizer::~OctreeQuantizer() { delete root; }
@@ -143,7 +143,7 @@ void OctreeQuantizer::reduction() {
     return;
   }
 
-  root->delete_level();
+  root->eliminar();
   --levels;
 }
 
