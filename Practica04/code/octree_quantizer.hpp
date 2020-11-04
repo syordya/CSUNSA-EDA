@@ -1,12 +1,16 @@
 #include <opencv2/highgui.hpp>
 #include <vector>
 
-struct Color {
+int get_index_level(uchar r, uchar g, uchar b, int level);
+
+class Color {
+ public:
   uint r, g, b;
   Color(uchar _r = 0, uchar _g = 0, uchar _b = 0);
 };
 
-struct Node {
+class Node {
+ public:
   Color color;
   int pixel;
   bool hoja;
@@ -19,20 +23,6 @@ struct Node {
   void eliminar();
 };
 
-int get_index_level(uchar r, uchar g, uchar b, int level) {
-  int index = 0;
-  int mask = 0x80 >> level;
-  if (r & mask) {
-    index |= 4;
-  }
-  if (g & mask) {
-    index |= 2;
-  }
-  if (b & mask) {
-    index |= 1;
-  }
-  return index;
-}
 
 class OctreeQuantizer {
  private:
@@ -219,4 +209,19 @@ void OctreeQuantizer::push_colors(Node *root, std::vector<Color> &colors) {
   for (uint i = 0; i < 8; i++) {
     push_colors(root->hijo[i], colors);
   }
+}
+
+int get_index_level(uchar r, uchar g, uchar b, int level) {
+  int index = 0;
+  int mask = 0x80 >> level;
+  if (r & mask) {
+    index |= 4;
+  }
+  if (g & mask) {
+    index |= 2;
+  }
+  if (b & mask) {
+    index |= 1;
+  }
+  return index;
 }
