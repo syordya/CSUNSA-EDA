@@ -9,6 +9,9 @@ main.js
 # IDE settings
 .vscode/*
 
+# -------------------- CMake --------------------  
+build/
+
 # -------------------- Node --------------------  
 ## Dependency directories
 node_modules/
