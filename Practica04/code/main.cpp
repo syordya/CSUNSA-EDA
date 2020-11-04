@@ -1,6 +1,7 @@
 #include <opencv2/highgui.hpp>
 
-#include "octree_quantization.hpp"
+#include "octree_quantizer.hpp"
+
 using namespace std;
 using namespace cv;
 
