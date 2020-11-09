@@ -100,6 +100,19 @@ function distanceSquared(pointA, pointB) {
   return Math.sqrt(distance);
 }
 
+function closest_point_brute_force(points, point){
+  var distance = Number.MAX_VALUE;
+  var point_c = null;
+  for (var i = 0; i< points.length; i++){
+      var auxiliar = distanceSquared(points[i], point);
+      if (auxiliar < distance){
+          distance = auxiliar;
+          point_c = points[i];
+      }
+  }
+  return distance;
+
+}
 
 //Best = min(distance(query, current_node), best).
 function naive_closest_point (node , point , depth = 0, best = null ){
