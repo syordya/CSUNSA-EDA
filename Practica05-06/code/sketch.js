@@ -54,6 +54,8 @@ function setup() {
   var graphDot = "digraph G {\n" + generateDot(root) + '}';
   console.log(graphDot);
   var best = closestPoint(root, point);
+  //Probando el naive
+  //var best = naive_closest_point(root,point);
   console.log(best);
 
   var x =  best[0];
