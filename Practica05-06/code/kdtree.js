@@ -100,6 +100,33 @@ function distanceSquared(pointA, pointB) {
   return Math.sqrt(distance);
 }
 
+
+//Best = min(distance(query, current_node), best).
+function naive_closest_point (node , point , depth = 0, best = null ){
+
+  if (!node) {
+    return best;
+  }
+  
+  var ladoIZQ = node.left;
+  var ladoDER = node.right;
+
+
+  //la distancia menor comprobamos de los nodos visitado
+  if(best == null || distanceSquared(node.point ,point) < distanceSquared(best,point)){
+    best = node.point;
+  }
+
+  //Coprobamos los si el punto es menor y va a la iz y si es mayor a la derecha
+  if (point[depth % k] < node.point[depth % k]) {
+    return naive_closest_point(ladoIZQ, point, depth +1 , best)
+  }
+  else{
+    return naive_closest_point(ladoDER, point, depth +1 , best)  
+  }
+
+}
+
 function masCercano(puntoConsulta, p1, p2) {
   if (!p1) {
     return p2;
