@@ -1,4 +1,5 @@
-k = 2;
+k = 2; // dimensions
+vecinos = 3; // Buscar vecinos más cercanos
 
 class Node {
   constructor(point, axis) {
@@ -47,7 +48,7 @@ function buildKdTree(points, depth = 0) {
         return 0;
       });
 
-    console.log("array : ", points);
+    //console.log("array : ", points);
     // Sort point list and choose median as pivot element
     if (points.length == 1) {
       median = 0;
@@ -75,18 +76,95 @@ function generateDot(node) {
 
   let str = '';
   if (node.left) {
-    str += '"' + node.point + '"';
-    str += "->";
-    str += '"' + node.left.point + '"';
+    str += '"' + node.point[0] + ',' + node.point[1] + '"';
+    str += " -> ";
+    str += '"' + node.left.point[0] + ',' + node.left.point[1] + '"';
     str += ';\n';
     str += generateDot(node.left);
   }
   if (node.right) {
-    str += '"' + node.point + '"';
-    str += "->";
-    str += '"' + node.right.point + '"';
+    str += '"' + node.point[0] + ',' + node.point[1] + '"';
+    str += " -> ";
+    str += '"' + node.right.point[0] + ',' + node.right.point[1] + '"';
     str += ';\n';
     str += generateDot(node.right);
   }
   return str;
+}
+
+function distanceSquared(pointA, pointB) {
+  var distance = 0;
+  for (var i = 0; i < k; i++) {
+    distance += Math.pow((pointA[i]-pointB[i]), 2)
+  }
+  return Math.sqrt(distance);
+}
+
+function masCercano(puntoConsulta, p1, p2) {
+  if (!p1) {
+    return p2;
+  }
+  if (!p2) {
+    return p1;
+  }
+  return (distanceSquared(puntoConsulta, p1) < distanceSquared(puntoConsulta, p2))? p1 : p2;
+}
+
+function closestPoint(node, point, depth = 0, best = null) {
+  if (!node) {
+    return null;
+  }
+
+  var subTree1 = node.left;
+  var subTree2 = node.right;
+
+  if (point[depth%k] >= node.point[depth%k]) {
+    subTree1 = node.right;
+    subTree2 = node.left;
+  }
+
+  best = masCercano(point, closestPoint(subTree1, point, depth + 1), node.point);
+
+  if (distanceSquared(point, best) > Math.abs(point[depth%k] - node.point[depth%k])) {
+    best = masCercano(point, closestPoint(subTree2, point, depth + 1), node.point);
+  }
+
+  return best;
+}
+
+function knn(node, point, kpoints, depth = 0) {
+  if (!node) {
+    return null;
+  }
+
+  var temp;
+  var subTree1 = node.left;
+  var subTree2 = node.right;
+
+  if (point[depth%k] >= node.point[depth%k]) {
+    subTree1 = node.right;
+    subTree2 = node.left;
+  }
+
+  masCercano(point, knn(subTree1, point, kpoints, depth +1), node.point);
+
+  const sortByX = (a, b) => a[2] - b[2];
+  if (kpoints.length < vecinos) {
+    temp = node.point;
+    temp.push(Math.round(distanceSquared(point, temp)*100)/100);
+    kpoints.push(temp);
+    kpoints.sort(sortByX);
+  } else {
+    temp = node.point;
+    temp.push(Math.round(distanceSquared(point, temp)*100)/100);
+    if (temp[2] < kpoints[kpoints.length - 1][2]) {
+      kpoints.pop();
+      kpoints.push(temp);
+      kpoints.sort(sortByX);
+    }
+  }
+
+  if(kpoints.length < vecinos || kpoints[0][2] >= Math.abs(point[depth % k] - node.point[depth%k])) {
+    masCercano(point, knn(subTree2, point, kpoints, depth +1), node.point);
+  }
 }
