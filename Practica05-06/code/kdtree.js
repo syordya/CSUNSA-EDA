@@ -120,7 +120,7 @@ function naive_closest_point (node , point , depth = 0, best = null ){
   if (!node) {
     return best;
   }
-  
+
   var ladoIZQ = node.left;
   var ladoDER = node.right;
 
@@ -135,7 +135,7 @@ function naive_closest_point (node , point , depth = 0, best = null ){
     return naive_closest_point(ladoIZQ, point, depth +1 , best)
   }
   else{
-    return naive_closest_point(ladoDER, point, depth +1 , best)  
+    return naive_closest_point(ladoDER, point, depth +1 , best)
   }
 
 }
@@ -150,29 +150,32 @@ function masCercano(puntoConsulta, p1, p2) {
   return (distanceSquared(puntoConsulta, p1) < distanceSquared(puntoConsulta, p2))? p1 : p2;
 }
 
-function closestPoint(node, point, depth = 0, best = null) {
+function closestPoint(node, puntoConsulta, depth = 0, best = null) {
   if (!node) {
     return null;
   }
 
+  // Escogiendo árbol de la izquierda o derecha
   var subTree1 = node.left;
   var subTree2 = node.right;
-
-  if (point[depth%k] >= node.point[depth%k]) {
+  if (puntoConsulta[depth%k] >= node.point[depth%k]) {
     subTree1 = node.right;
     subTree2 = node.left;
   }
 
-  best = masCercano(point, closestPoint(subTree1, point, depth + 1), node.point);
+  // Mejor distancia entre el padre y el subTree1.
+  best = masCercano(puntoConsulta, closestPoint(subTree1, puntoConsulta, depth + 1), node.point);
 
-  if (distanceSquared(point, best) > Math.abs(point[depth%k] - node.point[depth%k])) {
-    best = masCercano(point, closestPoint(subTree2, point, depth + 1), node.point);
+  // Viendo sí la distancia del punto de consulta al sector es menor que la distancia del mejor punto
+  if (Math.abs(puntoConsulta[depth%k] - node.point[depth%k]) < distanceSquared(puntoConsulta, best)) {
+    // Comparar mejor distancia con subTree2.
+    best = masCercano(puntoConsulta, closestPoint(subTree2, puntoConsulta, depth + 1), node.point);
   }
 
   return best;
 }
 
-function knn(node, point, kpoints, depth = 0) {
+function knn(node, puntoConsulta, kpoints, depth = 0) {
   if (!node) {
     return null;
   }
@@ -181,30 +184,33 @@ function knn(node, point, kpoints, depth = 0) {
   var subTree1 = node.left;
   var subTree2 = node.right;
 
-  if (point[depth%k] >= node.point[depth%k]) {
+  if (puntoConsulta[depth%k] >= node.point[depth%k]) {
     subTree1 = node.right;
     subTree2 = node.left;
   }
 
-  masCercano(point, knn(subTree1, point, kpoints, depth +1), node.point);
+  // Mejor distancia entre el padre y el subTree1.
+  masCercano(puntoConsulta, knn(subTree1, puntoConsulta, kpoints, depth +1), node.point);
 
-  const sortByX = (a, b) => a[2] - b[2];
+  // Variable para ordenar por distancias
+  const sortByDistance = (a, b) => a[2] - b[2];
+
   if (kpoints.length < vecinos) {
     temp = node.point;
-    temp.push(Math.round(distanceSquared(point, temp)*100)/100);
+    temp.push(Math.round(distanceSquared(puntoConsulta, temp)*100)/100);
     kpoints.push(temp);
-    kpoints.sort(sortByX);
+    kpoints.sort(sortByDistance);
   } else {
     temp = node.point;
-    temp.push(Math.round(distanceSquared(point, temp)*100)/100);
+    temp.push(Math.round(distanceSquared(puntoConsulta, temp)*100)/100);
     if (temp[2] < kpoints[kpoints.length - 1][2]) {
       kpoints.pop();
       kpoints.push(temp);
-      kpoints.sort(sortByX);
+      kpoints.sort(sortByDistance);
     }
   }
 
-  if(kpoints.length < vecinos || kpoints[0][2] >= Math.abs(point[depth % k] - node.point[depth%k])) {
-    masCercano(point, knn(subTree2, point, kpoints, depth +1), node.point);
+  if(kpoints.length < vecinos || kpoints[0][2] >= Math.abs(puntoConsulta[depth % k] - node.point[depth%k])) {
+    masCercano(puntoConsulta, knn(subTree2, puntoConsulta, kpoints, depth +1), node.point);
   }
 }
