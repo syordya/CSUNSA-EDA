@@ -35,7 +35,6 @@ function setup() {
 
   var x =  point[0];
   var y =  point[1];
-
   fill(81, 209, 246);
   circle(x, height - y, 7);
   textSize(8);
@@ -53,9 +52,13 @@ function setup() {
   console.log(root);
   var graphDot = "digraph G {\n" + generateDot(root) + '}';
   console.log(graphDot);
-  var best = closestPoint(root, point);
+  var brute = closest_point_brute_force(data, point); //[140,110]
+  var naive = naive_closest_point(root, point); // [175,100]
+  var best = closestPoint(root, point); //[140,110]
   //Probando el naive
   //var best = naive_closest_point(root,point);
+  console.log(brute);
+  console.log(naive);
   console.log(best);
 
   var x =  best[0];
