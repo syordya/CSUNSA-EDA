@@ -110,8 +110,7 @@ function closest_point_brute_force(points, point){
           point_c = points[i];
       }
   }
-  return distance;
-
+  return point_c;
 }
 
 //Best = min(distance(query, current_node), best).
