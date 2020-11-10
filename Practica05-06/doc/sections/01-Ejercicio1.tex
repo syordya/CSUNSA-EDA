@@ -1,0 +1,63 @@
+\section{Ejercicios}
+\subsection{Estructuras \textit{Color, Node, Octree}}
+\doublebox{
+    \begin{minipage}[c][1.2\height] [c]{1\textwidth}
+    \newline
+    Defina la clase \textit{node} del Octree. El nodo debe almacenar un color en RGB, un contador (para saber cuantos pixeles tienen ese color) y un \textit{flag} para saber si es nodo hoja.
+    \end{minipage}
+}\\
+\begin{lstlisting}[language=C++,
+                   directivestyle={\color{black}}
+                   emph={int,char,double,float,unsigned},
+                   emphstyle={\color{blue}}
+                  ]
+class Color {
+public:
+    uint r, g, b;
+    Color(uchar _r = 0, uchar _g = 0, uchar _b = 0);
+};
+
+
+class Node {
+public:
+    Color color;
+    int pixel;
+    bool hoja;
+    int level;
+    Node* hijo[8];
+    Node(Color _color = Color(), int _pixel = 0, bool _hoja = false,
+        int level = 0);
+    ~Node();
+    void agregar(int);
+    void eliminar();
+};
+
+class OctreeQuantizer {
+ private:
+  int levels;
+  Node *root;
+  void push_colors(Node *root, std::vector<Color> &colors);
+
+ public:
+  OctreeQuantizer();
+  ~OctreeQuantizer();
+  void fill(cv::Mat &entry);
+  void reduction();
+  void reconstruction(cv::Mat &entry);
+  void palette(cv::Mat &entry);
+};
+\end{lstlisting}
+
+
+\iffalse
+
+% ---- Para colocar una imagen ----
+Como se muestra en la figura \ref{fig:act-3}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{act-3}
+  \caption{Tabla de subneteo para la red 192.168.100.0.}
+  \label{fig:act-3}
+\end{figure}
+
+\fi

@@ -1,0 +1,38 @@
+\subsection{Método \textit{Reduction}}
+\doublebox{
+    \begin{minipage}[c][1.2\height] [c]{1\textwidth}
+    \newline
+    Defina un método \textit{reduction}, este método eliminará el último nivel del Octree y aculumará los valores de los canales RGB al nodo padre.
+    \end{minipage}
+}\\
+\begin{lstlisting}[language=C++,
+                   directivestyle={\color{black}}
+                   emph={int,char,double,float,unsigned},
+                   emphstyle={\color{blue}}
+                  ]
+void OctreeQuantizer::reduction() {
+  if (!levels) {
+    return;
+  }
+
+  root->eliminar();
+  --levels;
+}
+void Node::eliminar() {
+  if (hijo[0]->hoja) {
+    for (int i = 0; i < 8; i++) {
+      pixel += hijo[i]->pixel;
+      color.b += hijo[i]->color.b;
+      color.g += hijo[i]->color.g;
+      color.r += hijo[i]->color.r;
+      delete hijo[i];
+    }
+    hoja = true;
+    return;
+  }
+
+  for (int i = 0; i < 8; i++) {
+    hijo[i]->eliminar();
+  }
+}
+\end{lstlisting}

@@ -1,0 +1,48 @@
+\subsection{Método \textit{Fill}}
+\doublebox{
+    \begin{minipage}[c][1.2\height] [c]{1\textwidth}
+    \newline
+    Defina un método \textit{fill} que lea los pixeles de una imagen y construya el Octree según el algoritmo explicado en clases.
+    \end{minipage}
+}\\
+\begin{lstlisting}[language=C++,
+                   directivestyle={\color{black}}
+                   emph={int,char,double,float,unsigned},
+                   emphstyle={\color{blue}}
+                  ]
+OctreeQuantizer::~OctreeQuantizer() { delete root; }
+
+void OctreeQuantizer::fill(cv::Mat &entry) {
+    int canal = entry.channels();
+    int filas = entry.rows;
+    int columnas = entry.cols * canal;
+
+  if (entry.isContinuous()) {
+    columnas *= filas;
+    filas = 1;
+  }
+
+  uchar *p;
+  Node *ruta;
+  int i = 0;
+  while (i < filas) {
+    p = entry.ptr<uchar>(i);
+    int j = 0;
+    while (j < columnas) {
+      uchar b = p[j], g = p[j + 1], r = p[j + 2];
+      ruta = root;
+      for (int level = 0; level < levels; level++) {
+           ruta = ruta->hijo[get_index_level(p[j + 2], p[j + 1], p[j], level)];
+      }
+
+      ruta->color.b += p[j];
+      ruta->color.g += p[j + 1];
+      ruta->color.r += p[j + 2];
+
+      ++(ruta->pixel);
+      j += 3;
+    }
+    ++i;
+  }
+}
+\end{lstlisting}

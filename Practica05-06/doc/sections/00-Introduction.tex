@@ -1,0 +1,96 @@
+\section{Introducción}
+El problema de la cuantificación del color es representar imágenes RGB a todo color, donde cada píxel es típicamente descrito por tres muestras de color de 8 bits, de una manera aproximada por un relativamente pequeño número de colores. Supondremos que cada color está representado por su valor RGB de 24 bits. Históricamente, la cantidad de colores utilizados ha sido determinada por la profundidad del búfer del marco de visualización, a menudo 8 bits. Así, el espacio de color completo, que consta de unos 16 millones de píxeles ($2^{24}$), se divide en un pequeño número de regiones, y para cada región, se utiliza un solo color representativo para cada píxel que cae en la región.\\
+\\
+En general, hay dos pasos en la cuantificación del color de una imagen RGB de 24 bits. Primero se divide el espacio de color en una pequeña cantidad de colores, y segundo es asignar uno de estos colores a cada píxel de la imagen. El segundo paso requiere un recorrido a través de cada píxel en la imagen de entrada, utilizando una tabla de colores inversa para mapear desde el valor RGB al índice de la tabla de colores. El resultado visual suele mejorar con el difuminado por difusión de error de color (EDD). El primer paso requiere algunos análisis de la imagen para obtener mejores resultados, aunque también se puede utilizar una partición predeterminada de el espacio de color.
+
+\subsection{Cuantización de color}
+En los gráficos por ordenador, la cuantificación del color o la cuantificación de la imagen del color es la cuantificación aplicada a los espacios de color ; es un proceso que reduce la cantidad de colores distintos utilizados en una imagen , generalmente con la intención de que la nueva imagen sea lo más similar posible visualmente a la imagen original.
+
+%https://en.wikipedia.org/wiki/Color_quantization
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{images/michi1.png}
+  \caption{Una imagen de ejemplo en color RGB de 24 bits}
+  \label{fig:act-3}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{images/michi2.png}
+  \caption{La misma imagen reducida a una paleta de 16 colores elegidos específicamente para representar mejor la imagen; la paleta seleccionada se muestra mediante los cuadrados en la parte inferior de la imagen.}
+  \label{fig:act-4}
+\end{figure}
+
+La cuantificación del color es fundamental para mostrar imágenes con muchos colores en dispositivos que solo pueden mostrar una cantidad limitada de colores, generalmente debido a limitaciones de memoria, y permite una compresión eficiente de ciertos tipos de imágenes.
+
+\subsection{Cuantificación de color en un Octree}
+La cuantificación de color en un Octree es un algoritmo fascinante y sorprendentemente simple que nos permite reducir el número de colores únicos en una imagen manteniendo el aspecto general de la imagen. \\
+% https://observablehq.com/@tmcw/octree-color-quantization
+Debemos recordar que un Octree es un árbol donde cada nodo tiene hasta 8 hijos.Todos los nodos hoja no tienen hijos activos ,pero tienen una cantidad de píxeles conocido como \textit{pixel\_count} y el valor del color en el formato RGB.\\
+A continuación, la descripción del algoritmo:
+\begin{itemize}
+    \item \textbf{Adición de un nuevo color al octree :}
+    Empezando en el nivel 0, supongamos que tenemos el color de un píxel RGB (90, 13, 157), el cual en binario seria (01011010, 01110001, 10011101).\\
+    Luego, tenemos el índice de nodo del siguiente nivel, que se calcula escribiendo en binario el R, G y B, comenzando desde MSB, para el nivel actual. Entonces, el índice sería de 000 a 111 (en binario), es decir, de 0 a 7 (en decimal).Si la profundidad máxima del árbol es inferior a 8, solo importan los primeros bits de color.
+    
+    Continuamente, podemos observar la imagen con los primeros pasos para agregar el color:
+    
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\textwidth]{images/primero.png}
+      %\caption{Una imagen de ejemplo en color RGB de 24 bits}
+      \label{fig:act-5}
+    \end{figure}
+    
+    Si tenemos un árbol con profundidad máxima de 8, eventualmente tendremos los siguientes índices:
+    
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.65\textwidth]{images/levels.png}
+      %\caption{Una imagen de ejemplo en color RGB de 24 bits}
+      \label{fig:act-5}
+    \end{figure}
+    
+    El árbol completo con profundidad 8 después de agregar el color (90, 113, 157):
+    
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.65\textwidth]{images/completo.png}
+      %\caption{Una imagen de ejemplo en color RGB de 24 bits}
+      \label{fig:act-5}
+    \end{figure}
+    
+    Si el siguiente color de píxel es de nuevo (90, 113, 157), los valores de color R, G, B del nodo de hoja se incrementarán con los nuevos valores de color R, G, B, así como el valor de los píxeles con este color. Y el color será (180, 226, 314) y pixel\_count será 2:
+    
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.65\textwidth]{images/ultimos.png}
+      %\caption{Una imagen de ejemplo en color RGB de 24 bits}
+      \label{fig:act-5}
+    \end{figure}
+    
+    \newpage
+    \item \textbf{Reducción :}
+    Para lograr hacer una paleta de colores de una imagen, se debe hacer una reducción en las hojas del Octree.\\
+    Al realizar la reducción en los nodos hoja; en cada nodo hoja tenemos en cuenta la suma de los valores R, G y B y el número de píxeles; partiendo de ello podemos agregar todos los píxeles de las hojas y los canales de color al nodo padre y convertirlo en un nodo hoja, obteniendose así la reducción.\\
+    %La principal desventaja de este enfoque es que se pueden reducir hasta 8 hojas desde el nodo y la paleta podría tener solo 248 colores (en el peor de los casos) en lugar de los 256 colores esperados.
+    %Tan pronto como tengamos un recuento de hojas menores o iguales de colores máximos necesarios, podemos construir una paleta.
+
+    \item \textbf{Construcción de paleta :}
+    La paleta está llena de colores promedio de cada hoja. Como cada hoja tiene el número de píxeles y la suma del color de los valores R, G y B, el color promedio se puede recibir dividiendo los canales de color por el número de píxeles(pixel\_count), obteniendose así la siguiente fórmula: \\
+    \\
+    \shadowbox{
+        \begin{minipage}[c][1.1\height] [c]{0.9\textwidth}
+        palette\_color = (color.R / pixel\_count, color.G / pixel\_count , color.B / pixel\_count)
+        \end{minipage}
+     }\\
+   
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\textwidth]{images/elena.png}
+      \caption{Paleta de colores de una imagen fotográfica}
+      \label{fig:act-5}
+    \end{figure}   
+    
+    
+\end{itemize}

@@ -1,0 +1,56 @@
+\subsection{Paleta generada}
+\doublebox{
+    \begin{minipage}[c][1.2\height] [c]{1\textwidth}
+    \newline
+    Defina un método \textit{pallete}, este construirá la paleta.
+    \end{minipage}
+}\\
+
+\begin{lstlisting}[language=C++,
+                   directivestyle={\color{black}}
+                   emph={int,char,double,float,unsigned},
+                   emphstyle={\color{blue}}
+                  ]
+void OctreeQuantizer::palette(cv::Mat &entry) {
+  std::vector<Color> colors;
+  push_colors(root, colors);
+
+  int canal = entry.channels();
+  int filas = entry.rows;
+  int columnas = entry.cols * canal;
+
+  uchar *p;
+
+  uint step_size = filas / colors.size();
+  uint step = step_size;
+  int c_i = 0;
+  for (int i = 0; i < filas; ++i) {
+    p = entry.ptr<uchar>(i);
+    for (int j = 0; j < columnas; j += 3) {
+      p[j] = colors[c_i].b;
+      p[j + 1] = colors[c_i].g;
+      p[j + 2] = colors[c_i].r;
+    }
+    if (i > step) {
+      ++c_i;
+      step += step_size;
+    }
+  }
+}
+
+void OctreeQuantizer::push_colors(Node *root, std::vector<Color> &colors) {
+  if (root == nullptr) {
+    return;
+  }
+  if (root->hoja && root->pixel) {
+    colors.push_back(Color(root->color.r / root->pixel,
+                           root->color.g / root->pixel,
+                           root->color.b / root->pixel));
+    return;
+  }
+  for (uint i = 0; i < 8; i++) {
+    push_colors(root->hijo[i], colors);
+  }
+}
+\end{lstlisting}
+Como cada hoja tiene el número de píxeles con el color y la suma del color de los valores R, G y B, el color promedio se puede recibir dividiendo los canales de color por el número de píxeles: colors.push\_back(Color(root->color.r / pixel\_count, root->color.g / pixel\_count, root->color.b / pixel\_count));
