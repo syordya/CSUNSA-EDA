@@ -11,25 +11,18 @@ class Node {
 }
 
 function getHeight(node) {
+  if (!node) return -1;
+  if (node.left == null && node.right == null) return 0;
 
-  if (!node) {
-    return -1;
-  }
-  if (node.left == null && node.right == null) {
-    return 0;
-  }
-  var left_child;
-  var right_child
-  left_child = getHeight(node.left) + 1;
-  right_child = getHeight(node.right) + 1;
+  let left_child = getHeight(node.left);
+  let right_child = getHeight(node.right);
 
-  return Math.max(left_child, right_child);
+  return Math.max(left_child, right_child) + 1;
 }
 
 // https://es.wikipedia.org/wiki/%C3%81rbol_kd
 // points = [[1,2],[4,5]]
 function buildKdTree(points, depth = 0) {
-
   var median;
   var root;
 
@@ -65,7 +58,6 @@ function buildKdTree(points, depth = 0) {
     root.right = buildKdTree(points.slice(median + 1,), depth + 1);
 
     return root;
-
   }
 }
 
@@ -115,14 +107,12 @@ function closest_point_brute_force(points, point){
 
 //Best = min(distance(query, current_node), best).
 function naive_closest_point (node , point , depth = 0, best = null ){
-
   if (!node) {
     return best;
   }
 
   var ladoIZQ = node.left;
   var ladoDER = node.right;
-
 
   //la distancia menor comprobamos de los nodos visitado
   if(best == null || distanceSquared(node.point ,point) < distanceSquared(best,point)){
@@ -136,7 +126,6 @@ function naive_closest_point (node , point , depth = 0, best = null ){
   else{
     return naive_closest_point(ladoDER, point, depth +1 , best)
   }
-
 }
 
 function masCercano(puntoConsulta, p1, p2) {
