@@ -1,0 +1,40 @@
+\subsection{Range query rectangle}
+Implemente la función range\_query\_rec del KD-Tree, esta vez el range representa un rectángulo.
+\begin{lstlisting}[language=C++,
+                   directivestyle={\color{black}}
+                   emph={int,char,double,float,unsigned},
+                   emphstyle={\color{blue}}
+                  ]
+function rangeQueryRect(node, puntoConsulta, kpoints, rectangle, depth = 0) {
+  if (!node) return null;
+
+  var subTree1 = node.left;
+  var subTree2 = node.right;
+
+  if (puntoConsulta[depth%k] >= node.point[depth%k]) {
+    subTree1 = node.right;
+    subTree2 = node.left;
+  }
+
+  masCercano(puntoConsulta, rangeQueryRect(subTree1, puntoConsulta, kpoints, rectangle, depth + 1), node.point);
+  if (node.point[0] > (rectangle.x - rectangle.w) &&
+      node.point[0] < (rectangle.x + rectangle.w) &&
+      node.point[1] > (rectangle.y - rectangle.h) &&
+      node.point[1] < (rectangle.y + rectangle.h)) {
+    kpoints.push(node.point)
+  }
+
+  let distanceSector = Math.abs(puntoConsulta[depth%k] - node.point[depth%k]);
+  if (distanceSector <= rectangle.x + rectangle.w ||
+      distanceSector <= rectangle.x - rectangle.w ||
+      distanceSector <= rectangle.y + rectangle.h ||
+      distanceSector <= rectangle.y - rectangle.h) {
+        masCercano(puntoConsulta, rangeQueryRect(subTree2, puntoConsulta, kpoints, rectangle, depth + 1), node.point);
+  }
+}
+\end{lstlisting}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/7a.PNG}
+  \label{fig:act-7a}
+\end{figure}
