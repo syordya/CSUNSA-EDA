@@ -32,6 +32,6 @@ stats = stats.tolist()
 # add features
 features.append(stats)
 
-with open('input.csv', 'w', newline='') as file:
+with open('tests.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerows(features)
