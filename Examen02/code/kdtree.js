@@ -101,7 +101,7 @@ function knn(node, puntoConsulta, kpoints, depth = 0) {
 var data = [];
 var i = 1;
 
-let puntoConsulta = fs.readFileSync('input.csv').toString().split(",");
+let puntoConsulta = fs.readFileSync('tests.csv').toString().split(",");
 //puntoConsulta = puntoConsulta.slice(0,k)
 
 for(var i = 0 ; i < puntoConsulta.length; i++) {
