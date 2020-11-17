@@ -1,0 +1,13 @@
+# -------------------- General
+# Hardcoded directories
+dogs_vs_cats/
+tests/
+
+# Outputs
+*.csv
+
+# Datasets
+*.zip
+
+# Images
+*.jpg
