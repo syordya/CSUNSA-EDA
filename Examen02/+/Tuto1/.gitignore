@@ -1,0 +1,10 @@
+# -------------------- General
+# Hardcoded
+dogs_vs_cats/
+
+# Datasets
+*.zip
+
+# -------------------- Python
+# # Environments
+venv/
