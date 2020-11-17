@@ -1,26 +1,28 @@
-# Images
-*.jpg
-*.jpeg
-
-# Specifics
-entrada.txt
-main.js
-
-# Executables and compiled files
-*.exe
+# -------------------------------------------------- 
+# General
+## Executables and compiled files
 *.class
+*.exe
 
-# IDE settings
+## IDE settings
 .vscode/*
 
-# -------------------- CMake --------------------  
+# -------------------------------------------------- 
+# CMake
 build/
 
-# -------------------- Node --------------------  
+# -------------------------------------------------- 
+# Node
 ## Dependency directories
 node_modules/
 
-# -------------------- LaTeX --------------------  
+# -------------------------------------------------- 
+# Python
+## Environments
+venv/
+
+# -------------------------------------------------- 
+# LaTeX
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.fls
