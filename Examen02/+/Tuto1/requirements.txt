@@ -1,3 +1,0 @@
-imutils
-opencv-python
-scikit-learn
