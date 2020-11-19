@@ -2,7 +2,7 @@ const csv = require('csv-parser');
 const fs = require('fs');
 
 let k = 6; // dimensiones
-let vecinos = 15; // vecinos más cercanos
+let vecinos = 7; // vecinos más cercanos
 
 class Node {
   constructor(point, axis) {
@@ -76,38 +76,51 @@ function knn(node, puntoConsulta, kpoints, depth = 0) {
   masCercano(puntoConsulta, knn(subTree1, puntoConsulta, kpoints, depth +1), node.point);
 
   // Ordenar por distancias
-  const sortByDistance = (a, b) => a[2] - b[2];
+  const sortByDistance = (a, b) => a[k+1] - b[k+1];
 
   if (kpoints.length < vecinos) {
     temp = node.point;
-    temp.push(Math.round(distanceSquared(puntoConsulta, temp)*100)/100);
+    temp.push(distanceSquared(puntoConsulta, temp));
     kpoints.push(temp);
     kpoints.sort(sortByDistance);
   } else {
     temp = node.point;
-    temp.push(Math.round(distanceSquared(puntoConsulta, temp)*100)/100);
-    if (temp[2] < kpoints[kpoints.length - 1][2]) {
+    temp.push(distanceSquared(puntoConsulta, temp));
+    if (temp[k+1] < kpoints[kpoints.length - 1][k+1]) {
       kpoints.pop();
       kpoints.push(temp);
       kpoints.sort(sortByDistance);
     }
   }
 
-  if(kpoints.length < vecinos || kpoints[0][2] >= Math.abs(puntoConsulta[depth % k] - node.point[depth%k])) {
+  if(kpoints.length < vecinos || kpoints[0][k+1] >= Math.abs(puntoConsulta[depth % k] - node.point[depth%k])) {
     masCercano(puntoConsulta, knn(subTree2, puntoConsulta, kpoints, depth +1), node.point);
   }
 }
 
 var data = [];
-var i = 1;
+var queryPoints = [];
 
-let puntoConsulta = fs.readFileSync('tests.csv').toString().split(",");
-//puntoConsulta = puntoConsulta.slice(0,k)
+// Parse tests.csv
+fs.createReadStream('tests.csv', { star:10 })
+.on('error', () => {
+  // handle error
+})
+.pipe(csv())
+.on('data', (row) => {
+  var a = parseFloat(`${row["meanB"]}`);
+  var b = parseFloat(`${row["meanG"]}`);
+  var c = parseFloat(`${row["meanR"]}`);
+  var d = parseFloat(`${row["stdevB"]}`);
+  var e = parseFloat(`${row["stdevG"]}`);
+  var f = parseFloat(`${row["stdevR"]}`);
+  var g = `${row["class"]}`;
+  queryPoints.push([a,b,c,d,e,f,g]);
+})
+.on('end', () => {})
+.on('close', function(){})
 
-for(var i = 0 ; i < puntoConsulta.length; i++) {
-  puntoConsulta[i] = parseFloat(puntoConsulta[i]);
-}
-
+// Parse dogs_vs_cats
 fs.createReadStream('dogs_vs_cats.csv', { star:10 })
 .on('error', () => {
   // handle error
@@ -122,29 +135,39 @@ fs.createReadStream('dogs_vs_cats.csv', { star:10 })
   var f = parseFloat(`${row["stdevR"]}`);
   var g = `${row["class"]}`;
   data.push( [a,b,c,d,e,f,g] );
-
-  i++;
 })
 .on('end', () => {
-  var cats = 0;
-  var dogs = 0;
-  var root = buildKdTree(data);
+  let root = buildKdTree(data);
+  let correct = 0;
 
-  kvecinos = []
-  knn(root, puntoConsulta, kvecinos);
-
-  for(let i = 0 ; i < kvecinos.length; i++) {
-    if(kvecinos[i][k] == 'cat') {
-      cats++;
-    } else {
-      dogs++;
+  queryPoints.forEach((puntoConsulta) => {
+    let kvecinos = []
+    let cats = 0;
+    let dogs = 0;
+    let result = '';
+    knn(root, puntoConsulta, kvecinos);
+    for(let i = 0 ; i < kvecinos.length; i++) {
+      if(kvecinos[i][k] == 'cat') {
+        cats++;
+      } else {
+        dogs++;
+      }
     }
-  }
+    console.log(cats, dogs)
+    if (cats > dogs) {
+      result = "cat"
+    } else {
+      result = "dog"
+    }
+    console.log(result);
 
-  if (cats > dogs) {
-    console.log("cat")
-  } else {
-    console.log("dog")
-  }
+    if (puntoConsulta[k] == result) {
+      correct++;
+    }
+  });
+
+  let accuracy = Math.round((correct/queryPoints.length)*1000)/1000;
+
+  console.log(`Accuracy = ${accuracy}$.`)
 })
-.on( 'close', function(){} )
+.on('close', function(){} )
