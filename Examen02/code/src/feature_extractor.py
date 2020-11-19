@@ -26,7 +26,7 @@ for (i, imagePath) in enumerate(imagePaths):
     label = imagePath.split(os.path.sep)[-1].split(".")[0]
 
     # resize the image to a fixed size
-    image = cv2.resize(image, (32, 32))
+    image = cv2.resize(image, (64, 64))
 
     # image descriptor: color mean and standard deviation
     (means, stds) = cv2.meanStdDev(image)
