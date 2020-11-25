@@ -1,0 +1,87 @@
+\documentclass{rapportECL}
+\usepackage{amsmath}
+\usepackage{fancybox}
+\usepackage{lipsum}
+\usepackage{biblatex}
+\usepackage{csquotes}
+\addbibresource{main.bib}
+\usepackage{times}
+\usepackage{fancyhdr,graphicx,amsmath,amssymb}
+\usepackage[spanish]{babel}
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   % backcolour
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}\usepackage{xcolor}
+\DeclareUnicodeCharacter{2212}{-}
+\DeclareUnicodeCharacter{2217}{*}
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\title{Examen02_EDA}
+
+\begin{document}
+
+
+\titre{Examen \#2}
+\UE{\textbf{Escuela Profesional de Ciencia de la Computaci\'on}} %Nom de la UE
+\sujet{Estructuras de Datos Avanzados} %Nom du sujet
+
+\eleves{- Castillo Caccire, Kemely Francis\\
+        - Chullunquía Rosas, Sharon Rossely\\
+        - Santos Apaza, Yordy Williams\\
+        - Zúñiga Coayla, Jerson}
+\enseignant{Mg. Vicente Machaca Arceda}
+
+%----------- Initialisation -------------------
+        
+\fairemarges %Afficher les marges
+\fairepagedegarde %Créer la page de garde 
+\tableofcontents
+\newpage
+
+\include{sections/00-Introduction}
+\include{sections/01-Ejercicio1}
+\include{sections/02-Ejercicio2}
+\include{sections/03-Ejercicio3}
+\include{sections/04-Ejercicio4}
+\include{sections/05-Ejercicio5}
+\include{sections/06-Ejercicio6}
+\include{sections/07-Ejercicio7}
+\include{sections/08-Ejercicio8}
+\newpage
+\begin{thebibliography}{8}
+
+\bibitem{concept}
+KD Trees \textit{Data Structures and Algorithms Modules Collection}. \url{https://opendsa-server.cs.vt.edu/ODSA/Books/Everything/html/KDtree.html}.
+
+\bibitem{concept2}
+\textit{K-d Tree }\url{https://en.wikipedia.org/wiki/K-d_tree}.
+
+\end{thebibliography}
+
+%\printbibliography[heading=bibintoc]
+
+\end{document}

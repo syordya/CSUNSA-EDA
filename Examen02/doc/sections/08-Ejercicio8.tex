@@ -1,0 +1,45 @@
+\subsection{Función KNN}
+Averigue e implemente una funcion KNN, que retorna los k puntos mas cercanos a un punto.
+
+\begin{lstlisting}[language=C++,
+                   directivestyle={\color{black}}
+                   emph={int,char,double,float,unsigned},
+                   emphstyle={\color{blue}}
+                  ]
+function knn(node, point, kpoints, depth = 0) {
+  if (!node) {
+    return null;
+  }
+
+  var temp;
+  var subTree1 = node.left;
+  var subTree2 = node.right;
+
+  if (point[depth%k] >= node.point[depth%k]) {
+    subTree1 = node.right;
+    subTree2 = node.left;
+  }
+
+  masCercano(point, knn(subTree1, point, kpoints, depth +1), node.point);
+
+  const sortByX = (a, b) => a[2] - b[2];
+  if (kpoints.length < vecinos) {
+    temp = node.point;
+    temp.push(Math.round(distanceSquared(point, temp)*100)/100);
+    kpoints.push(temp);
+    kpoints.sort(sortByX);
+  } else {
+    temp = node.point;
+    temp.push(Math.round(distanceSquared(point, temp)*100)/100);
+    if (temp[2] < kpoints[kpoints.length - 1][2]) {
+      kpoints.pop();
+      kpoints.push(temp);
+      kpoints.sort(sortByX);
+    }
+  }
+
+  if(kpoints.length < vecinos || kpoints[0][2] >= Math.abs(point[depth % k] - node.point[depth%k])) {
+    masCercano(point, knn(subTree2, point, kpoints, depth +1), node.point);
+  }
+}
+\end{lstlisting}

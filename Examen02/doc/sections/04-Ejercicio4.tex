@@ -1,0 +1,70 @@
+\subsection{Implemente la función closest\_point\_brute\_force y naive\_closest\_point}
+
+\begin{lstlisting}[language=C++,
+                   directivestyle={\color{black}}
+                   emph={int,char,double,float,unsigned},
+                   emphstyle={\color{blue}}
+                  ]
+k=2;
+class Node {
+	constructor (point,axis){
+		this.point = point;
+		this.left = null;
+		this.right = null;
+        this.axis = axis;
+	}
+}
+function distanceSquared(pointA, pointB) {
+  var distance = 0;
+  for (var i = 0; i < k; i++) {
+    distance += Math.pow((pointA[i]-pointB[i]), 2)
+  }
+  return Math.sqrt(distance);
+}
+function closest_point_brute_force ( points , point ){}
+function naive_closest_point (node , point , depth = 0, best = null ){}
+\end{lstlisting}
+
+\subsubsection{closest\_point\_brute\_force}
+\begin{lstlisting}[language=C++,
+                   directivestyle={\color{black}}
+                   emph={int,char,double,float,unsigned},
+                   emphstyle={\color{blue}}
+                  ]
+function closest_point_brute_force(points, point){
+  var distance = Number.MAX_VALUE;
+  var point_c = null;
+  for (var i = 0; i< points.length; i++){
+      var auxiliar = distanceSquared(points[i], point);
+      if (auxiliar < distance){
+          distance = auxiliar;
+          point_c = points[i];
+      }
+  }
+  return distance;
+}
+\end{lstlisting}
+
+\subsubsection{naive\_closest\_point}
+\begin{lstlisting}[language=C++,
+                   directivestyle={\color{black}}
+                   emph={int,char,double,float,unsigned},
+                   emphstyle={\color{blue}}
+                  ]
+function naive_closest_point (node , point , depth = 0, best = null ){
+  if (!node) {
+    return best;
+  }
+  var ladoIZQ = node.left;
+  var ladoDER = node.right;
+  if(best == null || distanceSquared(node.point ,point) < distanceSquared(best,point)){
+    best = node.point;
+  }
+  if (point[depth % k] < node.point[depth % k]) {
+    return naive_closest_point(ladoIZQ, point, depth +1 , best)
+  }
+  else{
+    return naive_closest_point(ladoDER, point, depth +1 , best)  
+  }
+}
+\end{lstlisting}
