@@ -14,7 +14,7 @@ npm install
 cd src
 ```
 
-## Preprocesamiento con la MEDIA (cv2.mean(image))
+## Preprocesamiento con la MEDIA (cv2.mean)
 ### Generar vector de características de imágenes del *dataset* con la media.
 ```
 python feature_extractor_media.py --dataset moche_vs_yuan
@@ -76,6 +76,39 @@ Una ceramica yuan:
 ### Ejecución
 ```
 node kdtree_media.js
+```
+
+## Preprocesamiento Media y Desviación Estándar (cv2.meanStdDev)
+
+### Generar vector de características de imágenes del *dataset* .
+```
+python feature_extractor_STD.py --dataset moche_vs_yuan
+```
+<p align="center">
+  <img width="70%" height="70%" src="img/a2.PNG">
+</p>
+
+### Generar vector de características de una imagen de entrada .
+#### Con 3 vecinos
+Una ceramica yuan:
+```
+python feature_extractor_one_STD.py --image test2/1.png
+```
+<p align="center">
+  <img width="70%" height="70%" src="img/b1.PNG">
+</p>
+
+Una ceramica moche:
+```
+python feature_extractor_one_STD.py --image test2/7.png
+```
+<p align="center">
+  <img width="70%" height="70%" src="img/c1.PNG">
+</p>
+
+### Ejecución
+```
+node kdtree_STD.js
 ```
 
 salir deactivate
