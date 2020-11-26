@@ -1,11 +1,10 @@
 ## Requerimientos
-### Crear e inicializar entorno virtual de Python
+### Ingresar donde va a estar nuestro codigo y Crear e inicializar entorno virtual de Python
 ```
-python -m venv venv
-.\venv\Scripts\activate
+Linux: python -m venv venv
+Windows: .\venv\Scripts\activate
 ```
 
-cd C:\Users\Kemely\Desktop\SEMESTRE2\EDA\Segundo_Examen\CSUNSA-EDA\Examen02\code
 ### Instalar librerías de Python y Node
 ```
 pip install -r requirements.txt
@@ -71,7 +70,7 @@ Una ceramica yuan:
   <img width="70%" height="70%" src="img/d.PNG">
 </p>
 
-## Ejecución
+### Ejecución
 ```
 node kdtree_media.js
 ```
