@@ -1,3 +1,8 @@
+## Entradas
+Descargar el *dataset* [Moche vs. Yuan](https://drive.google.com/drive/folders/1vmOXs_ceuL26etRkjVuC5TudSe1xi9_m) desde Drive.
+Descarge la carpeta `moche_vs_yuan`
+A demas de los test.
+
 ## Requerimientos
 ### Ingresar donde va a estar nuestro codigo y Crear e inicializar entorno virtual de Python
 ```
