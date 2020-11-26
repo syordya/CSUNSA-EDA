@@ -2,7 +2,7 @@ const csv = require('csv-parser');
 const fs = require('fs');
 
 let k = 6; // dimensiones
-let vecinos = 7; // vecinos más cercanos
+let vecinos = 15; // vecinos más cercanos
 
 class Node {
   constructor(point, axis) {
@@ -102,7 +102,7 @@ var data = [];
 var queryPoints = [];
 
 // Parse tests.csv
-fs.createReadStream('tests.csv', { star:10 })
+fs.createReadStream('moche_vs_yuan-tests.csv', { star:10 })
 .on('error', () => {
   // handle error
 })
@@ -121,7 +121,7 @@ fs.createReadStream('tests.csv', { star:10 })
 .on('close', function(){})
 
 // Parse dogs_vs_cats
-fs.createReadStream('dogs_vs_cats.csv', { star:10 })
+fs.createReadStream('moche_vs_yuan.csv', { star:10 })
 .on('error', () => {
   // handle error
 })
@@ -147,7 +147,7 @@ fs.createReadStream('dogs_vs_cats.csv', { star:10 })
     let result = '';
     knn(root, puntoConsulta, kvecinos);
     for(let i = 0 ; i < kvecinos.length; i++) {
-      if(kvecinos[i][k] == 'cat') {
+      if(kvecinos[i][k] == 'moche') {
         cats++;
       } else {
         dogs++;
@@ -155,9 +155,9 @@ fs.createReadStream('dogs_vs_cats.csv', { star:10 })
     }
     console.log(cats, dogs)
     if (cats > dogs) {
-      result = "cat"
+      result = "moche"
     } else {
-      result = "dog"
+      result = "yuan"
     }
     console.log(result);
 

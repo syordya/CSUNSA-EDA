@@ -42,6 +42,6 @@ for (i, imagePath) in enumerate(imagePaths):
     if i > 0 and i % 1000 == 0:
         print("[INFO] processed {}/{}".format(i, len(imagePaths)))
 
-with open('dogs_vs_cats.csv', 'w', newline='') as file:
+with open('moche_vs_yuan-tests.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerows(features)
