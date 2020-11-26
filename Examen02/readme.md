@@ -110,5 +110,21 @@ python feature_extractor_one_STD.py --image test2/7.png
 ```
 node kdtree_STD.js
 ```
+### Contraste con solo la media:
+Utilizamos una imagen en el medio de las tonalidades.
+<p align="center">
+  <img width="10%" height="10%" src="img/16.jpg">
+</p>
+
+Con 50 vecinos
+#### cv2.mean
+<p align="center">
+  <img width="70%" height="70%" src="img/mean1.PNG">
+</p>
+
+#### cv2.meanStdDev
+<p align="center">
+  <img width="70%" height="70%" src="img/std1.PNG">
+</p>
 
 salir deactivate
