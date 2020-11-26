@@ -14,7 +14,7 @@ npm install
 cd src
 ```
 
-## Preprocesamiento con la MEDIA
+## Preprocesamiento con la MEDIA (cv2.mean(image))
 ### Generar vector de características de imágenes del *dataset* con la media.
 ```
 python feature_extractor_media.py --dataset moche_vs_yuan
