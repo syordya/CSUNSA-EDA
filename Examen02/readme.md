@@ -22,6 +22,9 @@ python feature_extractor_media.py --dataset moche_vs_yuan
 <p align="center">
   <img width="70%" height="70%" src="img/a.PNG">
 </p>
+<p align="center">
+  <img width="70%" height="70%" src="img/a1.PNG">
+</p>
 
 ### Generar vector de características de una imagen de entrada con la media.
 
