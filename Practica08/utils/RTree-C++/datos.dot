@@ -1,0 +1,8 @@
+digraph g {
+node [shape = record,height=.1];
+node0[label = "<f0> |e0|<f1> |e1|"];
+node1[label = "<f0> |(230,150)|<f1> |(150,200)|"];
+"node0":f0-> "node1"
+node2[label = "<f0> |(400,500)|<f1> |(600,300)|<f2> |(640,500)|"];
+"node0":f1-> "node2"
+}
