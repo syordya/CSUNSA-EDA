@@ -26,7 +26,8 @@ class MBR {
             n = _n;
         }
 
-        // calcular area
+        // calcular perimetro
+    
         void obtener_perimetro(point izq,point der){
             _y = izq.y - der.y;
             _x = izq.x - der.x;
