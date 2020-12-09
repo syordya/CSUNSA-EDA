@@ -19,7 +19,7 @@ class MBR {
     public: 
         int n; // capacidad
         int largo, ancho;
-        float area;
+        float perimetro;
 
         // constructor
         mbr(int _n){
@@ -27,7 +27,7 @@ class MBR {
         }
 
         // calcular area
-        void obtener_area(point izq,point der){
+        void obtener_perimetro(point izq,point der){
             _y = izq.y - der.y;
             _x = izq.x - der.x;
             largo = abs(_y);
@@ -37,8 +37,8 @@ class MBR {
         }
 
         // obtener perimetro de mbr
-        float area(){
-            return  area;
+        float perimetro(){
+            return  perimetro;
         }
 
         void update(vector<point> u){
