@@ -112,6 +112,8 @@ class RTree {
             }
         }
 
+}
+
         Node* Node::choose_subtree(Point u,int &p)
         {
             v = NULL;
@@ -134,9 +136,7 @@ class RTree {
                     }
                 }
             }
-            return v;
         }
-}
 
 int main(){
 
