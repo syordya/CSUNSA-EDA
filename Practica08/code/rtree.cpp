@@ -52,6 +52,8 @@ class Node {
         vector <Point> puntos;
         bool isLeaf;
         vector <MBR> nodos; // falta implementar
+        vector<Node*> hijos;
+        Node* choose_subtree(Point u,int &p);
         Node () {
             isLeaf = true;
         }
@@ -110,8 +112,29 @@ class RTree {
             }
         }
 
-        void choose_subtree(Node* u, Point p){
-            // falta
+        Node* Node::choose_subtree(Point u,int &p)
+        {
+            v = NULL;
+            float perimetro = 1e9;
+            for (int i = 0; i < nodos.size(); i++)
+            {
+                if (nodos[i].perimetro(u)) 
+                {
+                    p = i;
+                    return hijos[i];
+                }
+                else
+                {
+                    float new_perimetro = value.obtener_perimetro(); 
+                    if (new_perimetro < perimetro)
+                    {
+                        p = i;
+                        perimetro = new_perimetro;
+                        v = hijos[i];
+                    }
+                }
+            }
+            return v;
         }
 }
 
