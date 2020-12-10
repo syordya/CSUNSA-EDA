@@ -47,11 +47,19 @@ int maxPerimetro(vector<Point> points){
     return 2*((max_x-min_x)+(max_y-min_y)); 
 }
 
+<<<<<<< HEAD
 // Verifica si los puntos estan ordenados de forma creciente
 // segun el eje X
 bool sortbyx(Point a,Point b){
     return (a.x < b.x);
 }
+=======
+class MBR {
+    public: 
+        int n; // capacidad
+        int largo, ancho;
+        float perimetro;
+>>>>>>> c6c0d2aeaf1273fede38b95e0559b53965e5725a
 
 // Verifica si los puntos estan ordenados de forma creciente
 // segun el eje Y
@@ -59,17 +67,34 @@ bool sortbyy(Point a, Point b){
     return (a.y < b.y);
 }
 
+<<<<<<< HEAD
 // Generando vertices del MBR
 vector<Point> generar_vertices(vector<Point> points){
     int max_x=points[0].x;
     int min_x=points[0].x;
     int max_y=points[0].y;
     int min_y=points[0].y;
+=======
+        // calcular perimetro
+    
+        void obtener_perimetro(point izq,point der){
+            _y = izq.y - der.y;
+            _x = izq.x - der.x;
+            largo = abs(_y);
+            ancho = abs(_x);
+>>>>>>> c6c0d2aeaf1273fede38b95e0559b53965e5725a
 
     for(int i=0; i<points.size(); i++){
 
+<<<<<<< HEAD
         if(points[i].x > max_x)
             max_x=points[i].x;
+=======
+        // obtener perimetro de mbr
+        float perimetro(){
+            return  perimetro;
+        }
+>>>>>>> c6c0d2aeaf1273fede38b95e0559b53965e5725a
 
         if(points[i].x < min_x) 
             min_x=points[i].x;
@@ -95,10 +120,20 @@ class MBR{
         vector<Point> vertices; 
         Node* child;
     public:
+<<<<<<< HEAD
         MBR(vector<Point> points,Node* child){
             // generamos los vertices
             vertices=generar_vertices(points);
             child=child;
+=======
+        vector <Point> puntos;
+        bool isLeaf;
+        vector <MBR> nodos; // falta implementar
+        vector<Node*> hijos;
+        Node* choose_subtree(Point u,int &p);
+        Node () {
+            isLeaf = true;
+>>>>>>> c6c0d2aeaf1273fede38b95e0559b53965e5725a
         }
 
         // funcion que verifica si un punto esta dentro del MBR
@@ -347,6 +382,7 @@ public:
             actualizarMBR(node);
             //actualizarMBR(node2);
         }
+<<<<<<< HEAD
     }
     void insert(Node* node,Point p){
         if(node->is_leaf){
@@ -385,6 +421,35 @@ public:
     }
     
 };
+=======
+
+}
+
+        Node* Node::choose_subtree(Point u,int &p)
+        {
+            v = NULL;
+            float perimetro = 1e9;
+            for (int i = 0; i < nodos.size(); i++)
+            {
+                if (nodos[i].perimetro(u)) 
+                {
+                    p = i;
+                    return hijos[i];
+                }
+                else
+                {
+                    float new_perimetro = value.obtener_perimetro(); 
+                    if (new_perimetro < perimetro)
+                    {
+                        p = i;
+                        perimetro = new_perimetro;
+                        v = hijos[i];
+                    }
+                }
+            }
+        }
+
+>>>>>>> c6c0d2aeaf1273fede38b95e0559b53965e5725a
 int main(){
     Point p1(2,5);
     Point p2(5,4);
