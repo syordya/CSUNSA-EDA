@@ -371,8 +371,8 @@ public:
         }else{
             //cout<<"nivel "<<node->deep<<endl;
             for(int i=0; i<node->mbrs.size(); i++){
-                cout<<"MBR: ";
-                for(int j=0; j<1; j++)
+                cout<<"MBR: "<<endl;
+                for(int j=0; j<4; j++)
                     cout<<"("<<node->mbrs[i].vertices[j].x<<","<<node->mbrs[i].vertices[j].y<<") "<<endl;
                 print(node->mbrs[i].child);
             }
