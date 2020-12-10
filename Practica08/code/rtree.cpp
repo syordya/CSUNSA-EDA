@@ -85,10 +85,9 @@ vector<Point> generar_vertices(vector<Point> points){
     Point v3(max_x,min_y); // vertice 3
     Point v4(max_x,max_y); // vertice 4
 
-    // retorna eel vector de los vertices del MBR
+    // retorna el vector de los vertices del MBR
     return (vector<Point> {v1,v2,v3,v4});
 }
-
 
 class MBR{
     public:
@@ -97,8 +96,8 @@ class MBR{
     public:
         MBR(vector<Point> points,Node* child){
             // generamos los vertices
-            vertices=generar_vertices(points);
-            child=child;
+            this->vertices=generar_vertices(points);
+            this->child=child;
         }
 
         // funcion que verifica si un punto esta dentro del MBR
@@ -111,12 +110,14 @@ class MBR{
             else
                 return false;
         }
+
         int crece(Point p){
             int newx,newy,x,y;
             newx=min(abs(vertices[0].x - p.x),abs(vertices[3].x - p.x));
             newy=min(abs(vertices[0].y - p.y),abs(vertices[3].y - p.y));
             return newx+newy;
         }
+        
         // Esta funcion verifica si dos MBR se intersectan
         bool interseca(MBR mbr){
             // Recorre los vertices del 'mbr' si uno esta contenido
@@ -128,48 +129,60 @@ class MBR{
             return false;
         }
 };
-
-// Ordena los 
+// Ordena los MBR con respecto al eje X por el lado izquierdo
 bool sortbyleftx(MBR a,MBR b){
     return (a.vertices[0].x < b.vertices[0].x);
 }
+// Ordena los MBR con respecto al eje y por el lado izquierdo
 bool sortbylefty(MBR a,MBR b){
     return (a.vertices[0].y < b.vertices[0].y);
 }
+
+// Ordena los MBR con respecto al eje X por el lado derecho
 bool sortbyrightx(MBR a,MBR b){
     return (a.vertices[4].x < b.vertices[4].x);
 }
+
+// Ordena los MBR con respecto al eje Y por el lado derecho
 bool sortbyrighty(MBR a,MBR b){
     return (a.vertices[4].y < b.vertices[4].y);
 }
+
+// Retorna el perimetro maximo del MBR
 int maxPerimetro(vector<MBR> mbr){
-    int maxx=mbr[0].vertices[0].x,minx=maxx;
-    int maxy=mbr[0].vertices[0].y,miny=maxy;
+    int maxx=mbr[0].vertices[0].x;
+    int minx=maxx;
+    int maxy=mbr[0].vertices[0].y;
+    int miny=maxy;
     for(int i=0; i<mbr.size(); i++){
-        if(mbr[i].vertices[3].x > maxx)  maxx=mbr[i].vertices[3].x;
-        if(mbr[i].vertices[0].x < minx)  minx=mbr[i].vertices[0].x;
-        if(mbr[i].vertices[3].y > maxy)  maxy=mbr[i].vertices[3].y;
-        if(mbr[i].vertices[0].y < miny)  miny=mbr[i].vertices[0].y;
+        if(mbr[i].vertices[3].x > maxx)
+            maxx=mbr[i].vertices[3].x;
+        if(mbr[i].vertices[0].x < minx)
+            minx=mbr[i].vertices[0].x;
+        if(mbr[i].vertices[3].y > maxy)
+            maxy=mbr[i].vertices[3].y;
+        if(mbr[i].vertices[0].y < miny)
+            miny=mbr[i].vertices[0].y;
     }
     return 2*((maxx-minx)+(maxy-miny));
 }
+
 class Node{
 public:
     vector<Point> points;
-    vector<MBR> mbrs;
+    vector<MBR> mbrs; 
     bool is_leaf;
-    int deep;
+    int deep; // nivel
     Node* parent;
     MBR* MBRparent;
-    //debemos guardar la direccion del bmr parent
-    //para luego poder actualizarlo cuando hagamos un split
-    //en el overñaklsjdfñl
+    
 public:
     Node(int deep){
         this->is_leaf=true;
         this->deep=deep;
     }
 };
+
 class Rtree{
 public:
     Node* root;
