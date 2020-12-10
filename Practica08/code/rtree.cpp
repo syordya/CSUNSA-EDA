@@ -2,22 +2,12 @@
 #include <vector>
 #include <math.h>
 #include <algorithm>
-#include <fstream>
+#define Point pair<int,int>
+#define x first
+#define y second
 using namespace std;
 
 class Node;
-
-// POINT
-class Point{
-public:
-    int x;
-    int y;
-    // constructor
-    Point(int _x,int _y){
-        x = _x;
-        y = _y;
-    }
-};
 
 // Retorna el maximo perimetro
 int maxPerimetro(vector<Point> points){
@@ -182,7 +172,6 @@ public:
         this->deep=deep;
     }
 };
-
 class Rtree{
 public:
     Node* root;
@@ -208,7 +197,7 @@ public:
         }
         return result;
     }
-    //algo falla
+    
     void actualizarMBR(Node* node){
         if(node == this->root)
             return;
@@ -226,7 +215,7 @@ public:
                     vector<Point> p;
                     for(int j=0; j<node->mbrs.size(); j++)
                         copy(node->mbrs[j].vertices.begin(),node->mbrs[j].vertices.end(),back_inserter(p));
-                    node->parent->mbrs[i].vertices=generar_vertices(p);
+                    node->parent->mbrs[i].vertices==generar_vertices(p);
                     break;
                 }
             }
@@ -327,9 +316,7 @@ public:
             MBR mbr1(vec1,node);
             MBR mbr2(vec2,node2);
             newRoot->mbrs.push_back(mbr1);
-            //node->MBRparent=&(newRoot->mbrs[0]);
             newRoot->mbrs.push_back(mbr2);
-            //node2->MBRparent = &(newRoot->mbrs[1]);
             actualizarDeep(newRoot,0);
             this->root=newRoot;
         }else{
@@ -348,17 +335,13 @@ public:
             }
             MBR mbr1(vert1,node);
             MBR mbr2(vert2,node2);
-            //MBR* mbr_ = node->MBRparent;//actualizaremos el mbr del primer nodo, ya existia
-            //*mbr_ = mbr1;
             padre->mbrs.push_back(mbr2);
             int pos = padre->mbrs.size()-1;
             node2->parent = node->parent;
-            //node2->MBRparent = &(padre->mbrs[pos]);//damos la direccion del bmr que contiene a node2
             if(padre->mbrs.size() > this->capacidad){
                 overflow(padre);
             }
             actualizarMBR(node);
-            //actualizarMBR(node2);
         }
     }
     void insert(Node* node,Point p){
@@ -383,28 +366,23 @@ public:
                 cout<<node->points[i].x<<","<<node->points[i].y<<" ";
             cout<<endl;
         }else{
-            cout<<"nivel "<<node->deep<<endl;
+            //cout<<"nivel "<<node->deep<<endl;
             for(int i=0; i<node->mbrs.size(); i++){
                 cout<<"MBR: ";
-                for(int j=0; j<4; j++)
-                    cout<<node->mbrs[i].vertices[j].x<<"/"<<node->mbrs[i].vertices[j].y<<endl;
+                for(int j=0; j<1; j++)
+                    cout<<"("<<node->mbrs[i].vertices[j].x<<","<<node->mbrs[i].vertices[j].y<<") "<<endl;
                 print(node->mbrs[i].child);
             }
         }
     }
-    
+
     void print(){
         print(this->root);
     }
-    
+
+
 };
 int main(){
-    Point p1(2,5);
-    Point p2(5,4);
-    Point p3(1,2);
-    Point p4(3,3);
-    vector<Point> verti{p1,p2,p3};
-    MBR recta(verti,NULL);
     Rtree tree(3);
     tree.insert(Point(1,5));
     tree.insert(Point(4,1));
@@ -420,7 +398,6 @@ int main(){
     tree.insert(Point(14,4));
     tree.insert(Point(13,2));
     tree.print();
-    cout<<recta.contiene(Point(5,6))<<endl;
-    
+
     return 0;
 }
