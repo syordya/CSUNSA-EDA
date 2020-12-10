@@ -101,7 +101,7 @@ class MBR{
                 return false;
         }
 
-        int crece(Point p){
+        int agregando_punto(Point p){
             int newx,newy,x,y;
             newx=min(abs(vertices[0].x - p.x),abs(vertices[3].x - p.x));
             newy=min(abs(vertices[0].y - p.y),abs(vertices[3].y - p.y));
@@ -119,6 +119,7 @@ class MBR{
             return false;
         }
 };
+
 // Ordena los MBR con respecto al eje X por el lado izquierdo
 bool sortbyleftx(MBR a,MBR b){
     return (a.vertices[0].x < b.vertices[0].x);
@@ -138,7 +139,6 @@ bool sortbyrighty(MBR a,MBR b){
     return (a.vertices[4].y < b.vertices[4].y);
 }
 
-// Retorna el perimetro maximo del MBR
 int maxPerimetro(vector<MBR> mbr){
     int maxx=mbr[0].vertices[0].x;
     int minx=maxx;
@@ -160,18 +160,21 @@ int maxPerimetro(vector<MBR> mbr){
 class Node{
 public:
     vector<Point> points;
-    vector<MBR> mbrs; 
+    vector<MBR> mbrs;
     bool is_leaf;
-    int deep; // nivel
+    int deep;
     Node* parent;
     MBR* MBRparent;
-    
+    //debemos guardar la direccion del bmr parent
+    //para luego poder actualizarlo cuando hagamos un split
+    //en el overñaklsjdfñl
 public:
     Node(int deep){
         this->is_leaf=true;
         this->deep=deep;
     }
 };
+
 class Rtree{
 public:
     Node* root;
@@ -182,13 +185,13 @@ public:
         this->capacidad=capacidad;
     }
     Node* chooseSubtree(Node* node,Point p){
-        int minPerimetro=node->mbrs[0].crece(p);
+        int minPerimetro=node->mbrs[0].agregando_punto(p);
         Node* result=node->mbrs[0].child;
         for(int i=0; i<node->mbrs.size(); i++){
             if(node->mbrs[i].contiene(p))
                 return node->mbrs[i].child;
             else{
-                int temp=node->mbrs[i].crece(p);
+                int temp=node->mbrs[i].agregando_punto(p);
                 if(temp < minPerimetro){
                     minPerimetro=temp;
                     result=node->mbrs[i].child;
@@ -363,7 +366,7 @@ public:
         if(node->is_leaf){
             cout<<"nivel hoja "<<node->deep<<": ";
             for(int i=0; i<node->points.size(); i++)
-                cout<<node->points[i].x<<","<<node->points[i].y<<" ";
+                cout<<"("<<node->points[i].x<<","<<node->points[i].y<<") ";
             cout<<endl;
         }else{
             //cout<<"nivel "<<node->deep<<endl;
