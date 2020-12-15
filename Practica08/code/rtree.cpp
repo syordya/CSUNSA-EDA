@@ -9,7 +9,7 @@ using namespace std;
 
 class Node;
 
-// Retorna el maximo perimetro
+// Retorna el maximo perimetro que tiene un vector de puntos
 int maxPerimetro(vector<Point> points){
     // inicializando el minimo y maximo en el eje X del primer Point
     // y en el eje Y del primer Point
@@ -184,6 +184,23 @@ public:
         this->root=new Node(0);
         this->capacidad=capacidad;
     }
+
+    void insert(Node* node,Point p){
+        if(node->is_leaf){
+            node->points.push_back(p);
+            if(node->points.size() > this->capacidad){
+                handle_overflow(node);
+            }
+            actualizarMBR(node);
+        }else{
+            Node* newNode=chooseSubtree(node,p);
+            insert(newNode,p);
+        }
+    }
+    void insert(Point p){
+        return insert(this->root,p);
+    }
+    
     Node* chooseSubtree(Node* node,Point p){
         int minPerimetro=node->mbrs[0].agregando_punto(p);
         Node* result=node->mbrs[0].child;
@@ -299,7 +316,7 @@ public:
             actualizarDeep(node->mbrs[i].child,deep+1);
         }
     }
-    void overflow(Node* node){
+    void handle_overflow(Node* node){
         Node* node2 = split(node);
         if(node == this->root){
             Node* newRoot = new Node(0);
@@ -342,26 +359,12 @@ public:
             int pos = padre->mbrs.size()-1;
             node2->parent = node->parent;
             if(padre->mbrs.size() > this->capacidad){
-                overflow(padre);
+                handle_overflow(padre);
             }
             actualizarMBR(node);
         }
     }
-    void insert(Node* node,Point p){
-        if(node->is_leaf){
-            node->points.push_back(p);
-            if(node->points.size() > this->capacidad){
-                overflow(node);
-            }
-            actualizarMBR(node);
-        }else{
-            Node* newNode=chooseSubtree(node,p);
-            insert(newNode,p);
-        }
-    }
-    void insert(Point p){
-        return insert(this->root,p);
-    }
+    
     void print(Node* node){
         if(node->is_leaf){
             cout<<"nivel hoja "<<node->deep<<": ";
