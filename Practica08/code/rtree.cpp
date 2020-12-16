@@ -393,16 +393,12 @@ int main(){
     tree.insert(Point(1,5));
     tree.insert(Point(4,1));
     tree.insert(Point(3,14));
+    tree.insert(Point(3,4));
     tree.insert(Point(4,10));
     tree.insert(Point(5,7));
     tree.insert(Point(8,13));
     tree.insert(Point(9,9));
-    tree.insert(Point(11,11));
-    tree.insert(Point(13,12));
-    tree.insert(Point(10,6));
-    tree.insert(Point(15,8));
-    tree.insert(Point(14,4));
-    tree.insert(Point(13,2));
+    tree.insert(Point(6,14));
     tree.print();
 
     return 0;
